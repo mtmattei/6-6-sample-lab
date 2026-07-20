@@ -1,0 +1,88 @@
+<!-- Sample Lab design tokens and styles.
+     Plain root-level dictionary (not a theme dictionary) so custom keys
+     resolve inside DataTemplates on Skia targets. Light-only system. -->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+  <!-- Ink and neutrals -->
+  <Color x:Key="LabPaperColor">#FFFFFF</Color>
+  <Color x:Key="LabGray1Color">#F6F7F8</Color>
+  <Color x:Key="LabGray2Color">#EDEEF1</Color>
+  <Color x:Key="LabLineColor">#E2E4E8</Color>
+  <Color x:Key="LabLine2Color">#C9CCD2</Color>
+  <Color x:Key="LabInkColor">#14161A</Color>
+  <Color x:Key="LabMutedColor">#6B7077</Color>
+  <Color x:Key="LabAccentColor">#3656D4</Color>
+
+  <SolidColorBrush x:Key="LabPaperBrush" Color="{StaticResource LabPaperColor}" />
+  <SolidColorBrush x:Key="LabGray1Brush" Color="{StaticResource LabGray1Color}" />
+  <SolidColorBrush x:Key="LabGray2Brush" Color="{StaticResource LabGray2Color}" />
+  <SolidColorBrush x:Key="LabLineBrush" Color="{StaticResource LabLineColor}" />
+  <SolidColorBrush x:Key="LabLine2Brush" Color="{StaticResource LabLine2Color}" />
+  <SolidColorBrush x:Key="LabInkBrush" Color="{StaticResource LabInkColor}" />
+  <SolidColorBrush x:Key="LabMutedBrush" Color="{StaticResource LabMutedColor}" />
+  <SolidColorBrush x:Key="LabAccentBrush" Color="{StaticResource LabAccentColor}" />
+  <SolidColorBrush x:Key="LabAccentSoftBrush" Color="{StaticResource LabAccentColor}" Opacity="0.10" />
+
+  <!-- Type: Inter for interface, JetBrains Mono for labels and readouts.
+       Static instances per weight; family fragment matches each file's name table. -->
+  <FontFamily x:Key="LabUiFont">ms-appx:///Assets/Fonts/Inter-400.ttf#Inter</FontFamily>
+  <FontFamily x:Key="LabUiMediumFont">ms-appx:///Assets/Fonts/Inter-500.ttf#Inter Medium</FontFamily>
+  <FontFamily x:Key="LabUiSemiBoldFont">ms-appx:///Assets/Fonts/Inter-600.ttf#Inter SemiBold</FontFamily>
+  <FontFamily x:Key="LabMonoFont">ms-appx:///Assets/Fonts/JetBrainsMono-400.ttf#JetBrains Mono</FontFamily>
+  <FontFamily x:Key="LabMonoMediumFont">ms-appx:///Assets/Fonts/JetBrainsMono-500.ttf#JetBrains Mono Medium</FontFamily>
+
+  <CornerRadius x:Key="LabRadius">4</CornerRadius>
+
+  <!-- Text styles: hierarchy from scale and rhythm, not weight or color -->
+  <Style x:Key="LabTitle" TargetType="TextBlock">
+    <Setter Property="FontFamily" Value="{StaticResource LabUiSemiBoldFont}" />
+    <Setter Property="FontSize" Value="32" />
+    <Setter Property="CharacterSpacing" Value="-15" />
+    <Setter Property="Foreground" Value="{StaticResource LabInkBrush}" />
+    <Setter Property="LineHeight" Value="37" />
+  </Style>
+
+  <Style x:Key="LabLede" TargetType="TextBlock">
+    <Setter Property="FontFamily" Value="{StaticResource LabUiFont}" />
+    <Setter Property="FontSize" Value="16" />
+    <Setter Property="Foreground" Value="{StaticResource LabMutedBrush}" />
+    <Setter Property="LineHeight" Value="24" />
+    <Setter Property="TextWrapping" Value="Wrap" />
+  </Style>
+
+  <Style x:Key="LabBody" TargetType="TextBlock">
+    <Setter Property="FontFamily" Value="{StaticResource LabUiFont}" />
+    <Setter Property="FontSize" Value="14" />
+    <Setter Property="Foreground" Value="{StaticResource LabInkBrush}" />
+    <Setter Property="TextWrapping" Value="Wrap" />
+  </Style>
+
+  <!-- Uppercase supplied in markup; XAML has no text-transform -->
+  <Style x:Key="LabKicker" TargetType="TextBlock">
+    <Setter Property="FontFamily" Value="{StaticResource LabMonoFont}" />
+    <Setter Property="FontSize" Value="12" />
+    <Setter Property="CharacterSpacing" Value="120" />
+    <Setter Property="Foreground" Value="{StaticResource LabMutedBrush}" />
+  </Style>
+
+  <Style x:Key="LabMonoLabel" TargetType="TextBlock">
+    <Setter Property="FontFamily" Value="{StaticResource LabMonoFont}" />
+    <Setter Property="FontSize" Value="12" />
+    <Setter Property="CharacterSpacing" Value="40" />
+    <Setter Property="Foreground" Value="{StaticResource LabMutedBrush}" />
+  </Style>
+
+  <!-- Ghost button: paper fill, hairline border, ink text -->
+  <Style x:Key="LabGhostButton" TargetType="Button">
+    <Setter Property="Background" Value="{StaticResource LabPaperBrush}" />
+    <Setter Property="Foreground" Value="{StaticResource LabInkBrush}" />
+    <Setter Property="BorderBrush" Value="{StaticResource LabLine2Brush}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="CornerRadius" Value="{StaticResource LabRadius}" />
+    <Setter Property="FontFamily" Value="{StaticResource LabUiMediumFont}" />
+    <Setter Property="FontSize" Value="14" />
+    <Setter Property="Padding" Value="16,7" />
+  </Style>
+
+</ResourceDictionary>
