@@ -1,0 +1,73 @@
+Pane "A11yCapture"  {Window, Transform}
+  Text "SAMPLE LAB"
+  Text "lab"
+  Text "/"
+  Text "accessibility"  [id=CrumbText]
+  Text "v0.1 · uno platform 6.6"
+  Text "OVERVIEW"
+  Button "Index"  [id=NavHome]  {Invoke}
+    Text "Index"  [id=LabelHome]
+  Text "DEMOS"
+  Button "Accessibility"  [id=NavAccessibility]  {Invoke}
+    Text "Accessibility"  [id=LabelAccessibility]
+  Button "Scroll anchoring"  [id=NavScrollAnchor]  {Invoke}
+    Text "Scroll Anchoring"  [id=LabelScrollAnchor]
+  Button "Input and IME"  [id=NavInput]  {Invoke}
+    Text "Input & IME"  [id=LabelInput]
+  Button "Text features"  [id=NavText]  {Invoke}
+    Text "Text Features"  [id=LabelText]
+  Button "Element theming"  [id=NavElementTheme]  {Invoke}
+    Text "Element Theming"  [id=LabelElementTheme]
+  Button "Vector graphics"  [id=NavVectorGraphics]  {Invoke}
+    Text "Vector Graphics"  [id=LabelVectorGraphics]
+  Button "Menus and context"  [id=NavMenuFlyout]  {Invoke}
+    Text "Menus & Context"  [id=LabelMenuFlyout]
+  Pane  [id=MainScroll]  {Scroll}
+    Text "DEMO · SINGLE CAPABILITY"
+    Text "Accessibility"
+    Text "Tab through the form with a screen reader running. Each control announces its name, role, value, and state from the same automation-peer tree on every target."
+    Text "FIG.01"  (offscreen)
+    Text "Form specimen"
+    Button "Overview"
+      Text "overview"
+    Button "Details"
+      Text "details"
+    Button "Settings"
+      Text "settings"
+    Text "CUSTOMER NAME"
+    Edit "Customer name"  {Value=''}
+      Text
+      Text  [id=HeaderElement]  (offscreen)
+      Text "Contoso"  [id=PlaceholderElement]
+    Text "WI-FI"
+    Button "Wi-Fi"  {Toggle=Off}
+    Text "VOLUME"
+    Slider "Volume"  {RangeValue=50 [0..100]}
+    Text "CUSTOMERS"
+    Button "Customers"
+      ListItem "Contoso"
+        Text "Contoso"
+      ListItem "Fabrikam"
+        Text "Fabrikam"
+      ListItem "Northwind"
+        Text "Northwind"
+      ListItem "Adventure Works"
+        Text "Adventure Works"
+      ListItem "Tailspin"
+        Text "Tailspin"
+    Button "Save"  {Invoke}
+      Text "Save"
+    Text "Question:  what does the screen reader announce for each control?"
+    Text "UIA SURFACE"
+    Text "Tab chips"
+    Text "role=tablist · Border peerless"
+    Text "Toggle"
+    Text "TogglePattern · Off / On"
+    Text "Slider"
+    Text "RangeValuePattern · 0-100 step 5"
+    Text "List"
+    Text "ListItem · x of 5"
+    ScrollBar "Vertical"  [id=VerticalScrollBar]  {RangeValue=0 [0..718]}
+
+# 70 UI Automation elements
+
