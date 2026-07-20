@@ -59,6 +59,7 @@
             <StackPanel Spacing="6">
               <TextBlock Text="IME COMPOSITION" Style="{StaticResource LabKicker}" />
               <TextBox x:Name="ImeBox"
+                       IsSpellCheckEnabled="False"
                        AutomationProperties.Name="Customer name"
                        PlaceholderText="Enter customer name"
                        CornerRadius="{StaticResource LabRadius}"
@@ -73,6 +74,7 @@
             <StackPanel Spacing="6">
               <TextBlock Text="ARABIC · RTL" Style="{StaticResource LabKicker}" />
               <TextBox x:Name="ArabicBox"
+                       IsSpellCheckEnabled="False"
                        AutomationProperties.Name="Arabic"
                        FlowDirection="RightToLeft"
                        Text="مرحبا بالعالم"
@@ -83,6 +85,7 @@
             <StackPanel Spacing="6">
               <TextBlock Text="DEVANAGARI · COMBINING MARKS" Style="{StaticResource LabKicker}" />
               <TextBox x:Name="DevanagariBox"
+                       IsSpellCheckEnabled="False"
                        AutomationProperties.Name="Devanagari"
                        Text="नमस्ते दुनिया"
                        CornerRadius="{StaticResource LabRadius}"
@@ -92,6 +95,7 @@
             <StackPanel Spacing="6">
               <TextBlock Text="THAI · NO WORD SPACING" Style="{StaticResource LabKicker}" />
               <TextBox x:Name="ThaiBox"
+                       IsSpellCheckEnabled="False"
                        AutomationProperties.Name="Thai"
                        Text="สวัสดีชาวโลก"
                        CornerRadius="{StaticResource LabRadius}"

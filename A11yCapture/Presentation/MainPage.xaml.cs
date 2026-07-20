@@ -1,12 +1,30 @@
-using A11yCapture.Presentation.Sections;
+using Microsoft.UI.Xaml.Media;
+using Microsoft.UI.Xaml.Shapes;
 
 namespace A11yCapture.Presentation;
 
 public sealed partial class MainPage : Page
 {
+    /// <summary>One row of the nav rail, paired with the section it reveals.</summary>
+    private sealed record NavEntry(Button Item, Rectangle Tick, TextBlock Label, UIElement Section, string Crumb);
+
+    private readonly List<NavEntry> _entries;
+
     public MainPage()
     {
         this.InitializeComponent();
+
+        _entries = new List<NavEntry>
+        {
+            new(NavAccessibility, TickAccessibility, LabelAccessibility, AccessibilityView, "accessibility"),
+            new(NavScrollAnchor, TickScrollAnchor, LabelScrollAnchor, ScrollAnchorView, "scroll-anchoring"),
+            new(NavInput, TickInput, LabelInput, InputView, "input-ime"),
+            new(NavText, TickText, LabelText, TextView, "text-features"),
+            new(NavElementTheme, TickElementTheme, LabelElementTheme, ElementThemeView, "element-theming"),
+            new(NavVectorGraphics, TickVectorGraphics, LabelVectorGraphics, VectorGraphicsView, "vector-graphics"),
+            new(NavMenuFlyout, TickMenuFlyout, LabelMenuFlyout, MenuFlyoutView, "menus-context"),
+        };
+
         Loaded += OnLoaded;
         Unloaded += (_, _) => LogoQuadrantLoop.Stop();
     }
@@ -22,40 +40,32 @@ public sealed partial class MainPage : Page
 
     private void NavItem_Click(object sender, RoutedEventArgs e)
     {
-        // Streaming feed must not keep inserting while its section is hidden.
+        // The streaming feed must not keep inserting while its section is hidden.
         ScrollAnchorView.Deactivate();
 
         var target = (Button)sender;
-        ShowSection(
-            accessibility: target == NavAccessibility,
-            scrollAnchor: target == NavScrollAnchor,
-            input: target == NavInput);
-    }
+        foreach (var entry in _entries)
+        {
+            var active = entry.Item == target;
 
-    private void ShowSection(bool accessibility, bool scrollAnchor, bool input)
-    {
-        AccessibilityView.Visibility = accessibility ? Visibility.Visible : Visibility.Collapsed;
-        ScrollAnchorView.Visibility = scrollAnchor ? Visibility.Visible : Visibility.Collapsed;
-        InputView.Visibility = input ? Visibility.Visible : Visibility.Collapsed;
+            entry.Section.Visibility = active ? Visibility.Visible : Visibility.Collapsed;
+            entry.Item.Background = Brush(active ? "LabGray1Brush" : null);
+            entry.Tick.Fill = active ? Brush("LabAccentBrush") : Brush(null);
+            entry.Label.Foreground = Brush(active ? "LabInkBrush" : "LabMutedBrush");
+            entry.Label.FontFamily = (FontFamily)Application.Current.Resources[
+                active ? "LabUiMediumFont" : "LabUiFont"];
 
-        CrumbText.Text = accessibility ? "accessibility" : scrollAnchor ? "scroll-anchoring" : "input-ime";
-
-        SetNavState(NavAccessibility, TickAccessibility, LabelAccessibility, accessibility);
-        SetNavState(NavScrollAnchor, TickScrollAnchor, LabelScrollAnchor, scrollAnchor);
-        SetNavState(NavInput, TickInput, LabelInput, input);
+            if (active)
+            {
+                CrumbText.Text = entry.Crumb;
+            }
+        }
 
         MainScroll.ChangeView(null, 0, null, disableAnimation: true);
     }
 
-    private void SetNavState(Button item, Microsoft.UI.Xaml.Shapes.Rectangle tick, TextBlock label, bool active)
-    {
-        item.Background = active
-            ? (Microsoft.UI.Xaml.Media.Brush)Application.Current.Resources["LabGray1Brush"]
-            : new Microsoft.UI.Xaml.Media.SolidColorBrush(Microsoft.UI.Colors.Transparent);
-        tick.Fill = active
-            ? (Microsoft.UI.Xaml.Media.Brush)Application.Current.Resources["LabAccentBrush"]
-            : new Microsoft.UI.Xaml.Media.SolidColorBrush(Microsoft.UI.Colors.Transparent);
-        label.Foreground = (Microsoft.UI.Xaml.Media.Brush)Application.Current.Resources[active ? "LabInkBrush" : "LabMutedBrush"];
-        label.FontFamily = (FontFamily)Application.Current.Resources[active ? "LabUiMediumFont" : "LabUiFont"];
-    }
+    private static Brush Brush(string? key)
+        => key is null
+            ? new SolidColorBrush(Microsoft.UI.Colors.Transparent)
+            : (Brush)Application.Current.Resources[key];
 }

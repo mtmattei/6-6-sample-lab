@@ -1,0 +1,228 @@
+<UserControl x:Class="A11yCapture.Presentation.Sections.TextSection"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+  <StackPanel>
+
+    <TextBlock Text="DEMO · SINGLE CAPABILITY" Style="{StaticResource LabKicker}" Margin="0,0,0,12" />
+    <TextBlock Text="Text features"
+               Style="{StaticResource LabTitle}"
+               AutomationProperties.HeadingLevel="Level1"
+               Margin="0,0,0,12" />
+    <TextBlock Style="{StaticResource LabLede}" MaxWidth="520" HorizontalAlignment="Left"
+               Text="Highlighters paint character ranges without splitting the run, trimming resolves at the glyph the line actually ends on, and a Unicode-range map picks a capable font per run." />
+
+    <!-- Stage 1: spell check -->
+    <Border Background="{StaticResource LabGray1Brush}"
+            BorderBrush="{StaticResource LabLineBrush}"
+            BorderThickness="1"
+            CornerRadius="{StaticResource LabRadius}"
+            Padding="32"
+            Margin="0,32,0,0">
+      <Grid>
+        <TextBlock Text="FIG.10 · SPELL CHECK" Style="{StaticResource LabKicker}"
+                   VerticalAlignment="Top" HorizontalAlignment="Left"
+                   Margin="-20,-20,0,0" />
+
+        <StackPanel Spacing="12">
+          <TextBlock Text="IsSpellCheckEnabled on a TextBox. Misspellings get red squiggles; edit the text to watch them resolve."
+                     Style="{StaticResource LabMonoLabel}"
+                     TextWrapping="Wrap" />
+          <TextBox AutomationProperties.Name="Spell check sample"
+                   IsSpellCheckEnabled="True"
+                   AcceptsReturn="True"
+                   Height="90"
+                   CornerRadius="{StaticResource LabRadius}"
+                   FontFamily="{StaticResource LabUiFont}"
+                   FontSize="14"
+                   Text="The quik brown fox jmups over the lazzy dog while writting speling mistaykes." />
+        </StackPanel>
+      </Grid>
+    </Border>
+
+    <!-- Stage 2: highlighters -->
+    <Border Background="{StaticResource LabGray1Brush}"
+            BorderBrush="{StaticResource LabLineBrush}"
+            BorderThickness="1"
+            CornerRadius="{StaticResource LabRadius}"
+            Padding="32"
+            Margin="0,24,0,0">
+      <Grid>
+        <TextBlock Text="FIG.11 · TEXTHIGHLIGHTERS" Style="{StaticResource LabKicker}"
+                   VerticalAlignment="Top" HorizontalAlignment="Left"
+                   Margin="-20,-20,0,0" />
+
+        <StackPanel Spacing="16">
+          <StackPanel Spacing="6">
+            <TextBlock Text="QUERY" Style="{StaticResource LabKicker}" />
+            <TextBox x:Name="QueryBox"
+                     AutomationProperties.Name="Highlight query"
+                     Text="text"
+                     PlaceholderText="Type to highlight every match"
+                     CornerRadius="{StaticResource LabRadius}"
+                     FontFamily="{StaticResource LabUiFont}"
+                     FontSize="14"
+                     TextChanged="OnQueryChanged" />
+          </StackPanel>
+
+          <Border Background="{StaticResource LabPaperBrush}"
+                  BorderBrush="{StaticResource LabLine2Brush}"
+                  BorderThickness="1"
+                  CornerRadius="{StaticResource LabRadius}"
+                  Padding="16">
+            <TextBlock x:Name="HighlightTarget"
+                       TextWrapping="Wrap"
+                       LineHeight="24"
+                       FontFamily="{StaticResource LabUiFont}"
+                       FontSize="14"
+                       Foreground="{StaticResource LabInkBrush}"
+                       Text="Uno Platform brings the WinUI text stack to every target. This text block demonstrates live search highlighting: matching text is painted with a background so it stands out at a glance, and the surrounding text is left untouched." />
+          </Border>
+        </StackPanel>
+      </Grid>
+    </Border>
+
+    <!-- Stage 3: trimming -->
+    <Border Background="{StaticResource LabGray1Brush}"
+            BorderBrush="{StaticResource LabLineBrush}"
+            BorderThickness="1"
+            CornerRadius="{StaticResource LabRadius}"
+            Padding="32"
+            Margin="0,24,0,0">
+      <Grid>
+        <TextBlock Text="FIG.12 · TEXTTRIMMING" Style="{StaticResource LabKicker}"
+                   VerticalAlignment="Top" HorizontalAlignment="Left"
+                   Margin="-20,-20,0,0" />
+
+        <StackPanel Spacing="14">
+          <TextBlock Text="Same string, same 300px box, three modes."
+                     Style="{StaticResource LabMonoLabel}" />
+
+          <StackPanel Spacing="6">
+            <TextBlock Text="CHARACTERELLIPSIS" Style="{StaticResource LabKicker}" />
+            <Border Width="300" HorizontalAlignment="Left"
+                    Background="{StaticResource LabPaperBrush}"
+                    BorderBrush="{StaticResource LabLine2Brush}"
+                    BorderThickness="1"
+                    CornerRadius="{StaticResource LabRadius}"
+                    Padding="12,8">
+              <TextBlock Text="Sophisticated font fallback keeps mixed-script text readable"
+                         TextTrimming="CharacterEllipsis"
+                         TextWrapping="NoWrap"
+                         FontFamily="{StaticResource LabUiFont}"
+                         FontSize="14"
+                         Foreground="{StaticResource LabInkBrush}" />
+            </Border>
+          </StackPanel>
+
+          <StackPanel Spacing="6">
+            <TextBlock Text="WORDELLIPSIS" Style="{StaticResource LabKicker}" />
+            <Border Width="300" HorizontalAlignment="Left"
+                    Background="{StaticResource LabPaperBrush}"
+                    BorderBrush="{StaticResource LabLine2Brush}"
+                    BorderThickness="1"
+                    CornerRadius="{StaticResource LabRadius}"
+                    Padding="12,8">
+              <TextBlock Text="Sophisticated font fallback keeps mixed-script text readable"
+                         TextTrimming="WordEllipsis"
+                         TextWrapping="NoWrap"
+                         FontFamily="{StaticResource LabUiFont}"
+                         FontSize="14"
+                         Foreground="{StaticResource LabInkBrush}" />
+            </Border>
+          </StackPanel>
+
+          <StackPanel Spacing="6">
+            <TextBlock Text="NONE · CLIPPED" Style="{StaticResource LabKicker}" />
+            <Border Width="300" HorizontalAlignment="Left"
+                    Background="{StaticResource LabPaperBrush}"
+                    BorderBrush="{StaticResource LabLine2Brush}"
+                    BorderThickness="1"
+                    CornerRadius="{StaticResource LabRadius}"
+                    Padding="12,8">
+              <TextBlock Text="Sophisticated font fallback keeps mixed-script text readable"
+                         TextTrimming="None"
+                         TextWrapping="NoWrap"
+                         FontFamily="{StaticResource LabUiFont}"
+                         FontSize="14"
+                         Foreground="{StaticResource LabInkBrush}" />
+            </Border>
+          </StackPanel>
+        </StackPanel>
+      </Grid>
+    </Border>
+
+    <!-- Stage 4: font fallback -->
+    <Border Background="{StaticResource LabGray1Brush}"
+            BorderBrush="{StaticResource LabLineBrush}"
+            BorderThickness="1"
+            CornerRadius="{StaticResource LabRadius}"
+            Padding="32"
+            Margin="0,24,0,0">
+      <Grid>
+        <TextBlock Text="FIG.13 · FONT FALLBACK" Style="{StaticResource LabKicker}"
+                   VerticalAlignment="Top" HorizontalAlignment="Left"
+                   Margin="-20,-20,0,0" />
+
+        <StackPanel Spacing="12">
+          <TextBlock Text="One TextBlock, one FontFamily. No tofu."
+                     Style="{StaticResource LabMonoLabel}" />
+          <Border Background="{StaticResource LabPaperBrush}"
+                  BorderBrush="{StaticResource LabLine2Brush}"
+                  BorderThickness="1"
+                  CornerRadius="{StaticResource LabRadius}"
+                  Padding="16">
+            <TextBlock TextWrapping="Wrap"
+                       LineHeight="30"
+                       FontFamily="{StaticResource LabUiFont}"
+                       FontSize="20"
+                       Foreground="{StaticResource LabInkBrush}"
+                       Text="Hello, world! こんにちは 你好 안녕하세요 مرحبا नमस्ते สวัสดี ‎— Uno Platform" />
+          </Border>
+        </StackPanel>
+      </Grid>
+    </Border>
+
+    <!-- Annotate -->
+    <TextBlock Margin="0,16,0,0" FontSize="14" TextWrapping="Wrap">
+      <Run Text="Question:"
+           FontFamily="{StaticResource LabUiMediumFont}"
+           Foreground="{StaticResource LabInkBrush}" />
+      <Run Text=" the highlight moves without the text reflowing. What is being painted, and what is not?"
+           FontFamily="{StaticResource LabUiFont}"
+           Foreground="{StaticResource LabMutedBrush}" />
+    </TextBlock>
+
+    <Rectangle Height="1" Fill="{StaticResource LabLineBrush}" Margin="0,32" />
+
+    <!-- Live readouts -->
+    <TextBlock Text="LIVE STATE" Style="{StaticResource LabKicker}" Margin="0,0,0,4" />
+
+    <Border BorderBrush="{StaticResource LabLineBrush}" BorderThickness="0,1,0,0" Padding="0,16">
+      <Grid>
+        <TextBlock Text="Matches highlighted" Style="{StaticResource LabBody}" />
+        <TextBlock x:Name="MatchCountValue" Text="0"
+                   Style="{StaticResource LabMonoLabel}"
+                   Foreground="{StaticResource LabInkBrush}"
+                   HorizontalAlignment="Right" />
+      </Grid>
+    </Border>
+    <Border BorderBrush="{StaticResource LabLineBrush}" BorderThickness="0,1,0,0" Padding="0,16">
+      <Grid>
+        <TextBlock Text="Ranges" Style="{StaticResource LabBody}" />
+        <TextBlock x:Name="RangesValue" Text="—"
+                   Style="{StaticResource LabMonoLabel}"
+                   HorizontalAlignment="Right" />
+      </Grid>
+    </Border>
+    <Border BorderBrush="{StaticResource LabLineBrush}" BorderThickness="0,1,0,1" Padding="0,16">
+      <Grid>
+        <TextBlock Text="Scripts in the fallback line" Style="{StaticResource LabBody}" />
+        <TextBlock Text="Latin · CJK · Hangul · Arabic · Devanagari · Thai"
+                   Style="{StaticResource LabMonoLabel}"
+                   HorizontalAlignment="Right" />
+      </Grid>
+    </Border>
+
+  </StackPanel>
+</UserControl>

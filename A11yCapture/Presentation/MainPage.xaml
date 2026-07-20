@@ -157,12 +157,65 @@
           </StackPanel>
         </Button>
 
-        <Border Padding="8,7">
+        <Button x:Name="NavText"
+                Style="{StaticResource LabNavItem}"
+                AutomationProperties.Name="Text features"
+                Click="NavItem_Click">
           <StackPanel Orientation="Horizontal" Spacing="12">
-            <Rectangle Width="2" Height="14" Fill="Transparent" />
-            <TextBlock Text="Font Fallback" Style="{StaticResource LabBody}" Foreground="{StaticResource LabLine2Brush}" />
+            <Rectangle x:Name="TickText" Width="2" Height="14" RadiusX="1" RadiusY="1"
+                       Fill="Transparent" VerticalAlignment="Center" />
+            <TextBlock x:Name="LabelText"
+                       Text="Text Features"
+                       FontFamily="{StaticResource LabUiFont}"
+                       FontSize="14"
+                       Foreground="{StaticResource LabMutedBrush}" />
           </StackPanel>
-        </Border>
+        </Button>
+
+        <Button x:Name="NavElementTheme"
+                Style="{StaticResource LabNavItem}"
+                AutomationProperties.Name="Element theming"
+                Click="NavItem_Click">
+          <StackPanel Orientation="Horizontal" Spacing="12">
+            <Rectangle x:Name="TickElementTheme" Width="2" Height="14" RadiusX="1" RadiusY="1"
+                       Fill="Transparent" VerticalAlignment="Center" />
+            <TextBlock x:Name="LabelElementTheme"
+                       Text="Element Theming"
+                       FontFamily="{StaticResource LabUiFont}"
+                       FontSize="14"
+                       Foreground="{StaticResource LabMutedBrush}" />
+          </StackPanel>
+        </Button>
+
+        <Button x:Name="NavVectorGraphics"
+                Style="{StaticResource LabNavItem}"
+                AutomationProperties.Name="Vector graphics"
+                Click="NavItem_Click">
+          <StackPanel Orientation="Horizontal" Spacing="12">
+            <Rectangle x:Name="TickVectorGraphics" Width="2" Height="14" RadiusX="1" RadiusY="1"
+                       Fill="Transparent" VerticalAlignment="Center" />
+            <TextBlock x:Name="LabelVectorGraphics"
+                       Text="Vector Graphics"
+                       FontFamily="{StaticResource LabUiFont}"
+                       FontSize="14"
+                       Foreground="{StaticResource LabMutedBrush}" />
+          </StackPanel>
+        </Button>
+
+        <Button x:Name="NavMenuFlyout"
+                Style="{StaticResource LabNavItem}"
+                AutomationProperties.Name="Menus and context"
+                Click="NavItem_Click">
+          <StackPanel Orientation="Horizontal" Spacing="12">
+            <Rectangle x:Name="TickMenuFlyout" Width="2" Height="14" RadiusX="1" RadiusY="1"
+                       Fill="Transparent" VerticalAlignment="Center" />
+            <TextBlock x:Name="LabelMenuFlyout"
+                       Text="Menus &amp; Context"
+                       FontFamily="{StaticResource LabUiFont}"
+                       FontSize="14"
+                       Foreground="{StaticResource LabMutedBrush}" />
+          </StackPanel>
+        </Button>
       </StackPanel>
     </Border>
 
@@ -175,6 +228,10 @@
         <sections:AccessibilitySection x:Name="AccessibilityView" />
         <sections:ScrollAnchorSection x:Name="ScrollAnchorView" Visibility="Collapsed" />
         <sections:InputSection x:Name="InputView" Visibility="Collapsed" />
+        <sections:TextSection x:Name="TextView" Visibility="Collapsed" />
+        <sections:ElementThemeSection x:Name="ElementThemeView" Visibility="Collapsed" />
+        <sections:VectorGraphicsSection x:Name="VectorGraphicsView" Visibility="Collapsed" />
+        <sections:MenuFlyoutSection x:Name="MenuFlyoutView" Visibility="Collapsed" />
       </Grid>
     </ScrollViewer>
 

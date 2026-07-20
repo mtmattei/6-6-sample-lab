@@ -1,0 +1,248 @@
+<UserControl x:Class="A11yCapture.Presentation.Sections.MenuFlyoutSection"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+  <StackPanel>
+
+    <TextBlock Text="DEMO · SINGLE CAPABILITY" Style="{StaticResource LabKicker}" Margin="0,0,0,12" />
+    <TextBlock Text="Menus &amp; context"
+               Style="{StaticResource LabTitle}"
+               AutomationProperties.HeadingLevel="Level1"
+               Margin="0,0,0,12" />
+    <TextBlock Style="{StaticResource LabLede}" MaxWidth="520" HorizontalAlignment="Left"
+               Text="Nested submenus, split items, and accelerator hint text render in the menu itself. Context gestures raise routed events you can observe." />
+
+    <!-- Stage 1: menu bar -->
+    <Border Background="{StaticResource LabGray1Brush}"
+            BorderBrush="{StaticResource LabLineBrush}"
+            BorderThickness="1"
+            CornerRadius="{StaticResource LabRadius}"
+            Padding="32"
+            Margin="0,32,0,0">
+      <Grid>
+        <TextBlock Text="FIG.08 · MENUBAR" Style="{StaticResource LabKicker}"
+                   VerticalAlignment="Top" HorizontalAlignment="Left"
+                   Margin="-20,-20,0,0" />
+
+        <Border Background="{StaticResource LabPaperBrush}"
+                BorderBrush="{StaticResource LabLine2Brush}"
+                BorderThickness="1"
+                CornerRadius="{StaticResource LabRadius}">
+          <StackPanel>
+            <!-- WinUI's MenuBar chrome renders its titles white-on-white on this Skia
+                 build and its hover pill overflows the bar, so the bar is built from
+                 lab-styled Buttons hosting the same MenuFlyouts. The flyout content
+                 (submenus, accelerator hints, toggles) is the capability on show. -->
+            <StackPanel Orientation="Horizontal" Spacing="2" Padding="8,6">
+              <Button x:Name="FileMenuButton"
+                      Content="File"
+                      Style="{StaticResource LabMenuButton}"
+                      AutomationProperties.Name="File menu">
+                <Button.Flyout>
+                  <MenuFlyout Placement="BottomEdgeAlignedLeft" Opened="OnMenuOpened" Closed="OnMenuClosed">
+                    <MenuFlyoutSubItem Text="New">
+                      <MenuFlyoutItem Text="Project" Click="OnMenuItemClick">
+                        <MenuFlyoutItem.KeyboardAccelerators>
+                          <KeyboardAccelerator Key="N" Modifiers="Control" />
+                        </MenuFlyoutItem.KeyboardAccelerators>
+                      </MenuFlyoutItem>
+                      <MenuFlyoutItem Text="Solution" Click="OnMenuItemClick" />
+                      <MenuFlyoutSubItem Text="From template">
+                        <MenuFlyoutItem Text="Blank app" Click="OnMenuItemClick" />
+                        <MenuFlyoutItem Text="Sample gallery" Click="OnMenuItemClick" />
+                      </MenuFlyoutSubItem>
+                    </MenuFlyoutSubItem>
+                    <MenuFlyoutItem Text="Open" Click="OnMenuItemClick">
+                      <MenuFlyoutItem.KeyboardAccelerators>
+                        <KeyboardAccelerator Key="O" Modifiers="Control" />
+                      </MenuFlyoutItem.KeyboardAccelerators>
+                    </MenuFlyoutItem>
+                    <MenuFlyoutSeparator />
+                    <MenuFlyoutItem Text="Print" Click="OnMenuItemClick">
+                      <MenuFlyoutItem.KeyboardAccelerators>
+                        <KeyboardAccelerator Key="P" Modifiers="Control" />
+                      </MenuFlyoutItem.KeyboardAccelerators>
+                    </MenuFlyoutItem>
+                  </MenuFlyout>
+                </Button.Flyout>
+              </Button>
+
+              <Button x:Name="EditMenuButton"
+                      Content="Edit"
+                      Style="{StaticResource LabMenuButton}"
+                      AutomationProperties.Name="Edit menu">
+                <Button.Flyout>
+                  <MenuFlyout Placement="BottomEdgeAlignedLeft" Opened="OnMenuOpened" Closed="OnMenuClosed">
+                    <MenuFlyoutItem Text="Undo" Click="OnMenuItemClick">
+                      <MenuFlyoutItem.KeyboardAccelerators>
+                        <KeyboardAccelerator Key="Z" Modifiers="Control" />
+                      </MenuFlyoutItem.KeyboardAccelerators>
+                    </MenuFlyoutItem>
+                    <MenuFlyoutItem Text="Redo" Click="OnMenuItemClick">
+                      <MenuFlyoutItem.KeyboardAccelerators>
+                        <KeyboardAccelerator Key="Y" Modifiers="Control" />
+                      </MenuFlyoutItem.KeyboardAccelerators>
+                    </MenuFlyoutItem>
+                    <MenuFlyoutSeparator />
+                    <ToggleMenuFlyoutItem Text="Word wrap" IsChecked="True" Click="OnToggleClick" />
+                  </MenuFlyout>
+                </Button.Flyout>
+              </Button>
+
+              <Button x:Name="ViewMenuButton"
+                      Content="View"
+                      Style="{StaticResource LabMenuButton}"
+                      AutomationProperties.Name="View menu">
+                <Button.Flyout>
+                  <MenuFlyout Placement="BottomEdgeAlignedLeft" Opened="OnMenuOpened" Closed="OnMenuClosed">
+                    <MenuFlyoutSubItem Text="Zoom">
+                      <MenuFlyoutItem Text="Zoom in" Click="OnMenuItemClick">
+                        <MenuFlyoutItem.KeyboardAccelerators>
+                          <KeyboardAccelerator Key="Add" Modifiers="Control" />
+                        </MenuFlyoutItem.KeyboardAccelerators>
+                      </MenuFlyoutItem>
+                      <MenuFlyoutItem Text="Zoom out" Click="OnMenuItemClick">
+                        <MenuFlyoutItem.KeyboardAccelerators>
+                          <KeyboardAccelerator Key="Subtract" Modifiers="Control" />
+                        </MenuFlyoutItem.KeyboardAccelerators>
+                      </MenuFlyoutItem>
+                    </MenuFlyoutSubItem>
+                    <ToggleMenuFlyoutItem Text="Show grid" Click="OnToggleClick">
+                      <ToggleMenuFlyoutItem.KeyboardAccelerators>
+                        <KeyboardAccelerator Key="G" Modifiers="Control" />
+                      </ToggleMenuFlyoutItem.KeyboardAccelerators>
+                    </ToggleMenuFlyoutItem>
+                  </MenuFlyout>
+                </Button.Flyout>
+              </Button>
+            </StackPanel>
+
+            <Border BorderBrush="{StaticResource LabLineBrush}" BorderThickness="0,1,0,0" Padding="16,12">
+              <TextBlock x:Name="MenuStatus"
+                         Text="No item invoked yet"
+                         Style="{StaticResource LabMonoLabel}" />
+            </Border>
+          </StackPanel>
+        </Border>
+      </Grid>
+    </Border>
+
+    <!-- Stage 2: context surface -->
+    <Border Background="{StaticResource LabGray1Brush}"
+            BorderBrush="{StaticResource LabLineBrush}"
+            BorderThickness="1"
+            CornerRadius="{StaticResource LabRadius}"
+            Padding="32"
+            Margin="0,24,0,0">
+      <Grid>
+        <TextBlock Text="FIG.09 · CONTEXT" Style="{StaticResource LabKicker}"
+                   VerticalAlignment="Top" HorizontalAlignment="Left"
+                   Margin="-20,-20,0,0" />
+
+        <StackPanel Spacing="16">
+          <Border x:Name="ContextTarget"
+                  Height="120"
+                  Background="{StaticResource LabPaperBrush}"
+                  BorderBrush="{StaticResource LabLine2Brush}"
+                  BorderThickness="1"
+                  CornerRadius="{StaticResource LabRadius}"
+                  AutomationProperties.Name="Context surface"
+                  ContextRequested="OnContextRequested"
+                  ContextCanceled="OnContextCanceled">
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="6">
+              <TextBlock Text="RIGHT-CLICK OR SHIFT+F10"
+                         Style="{StaticResource LabKicker}"
+                         HorizontalAlignment="Center" />
+              <TextBlock x:Name="PositionText"
+                         Text="Position: (waiting)"
+                         Style="{StaticResource LabMonoLabel}"
+                         Foreground="{StaticResource LabInkBrush}"
+                         HorizontalAlignment="Center" />
+            </StackPanel>
+
+            <Border.ContextFlyout>
+              <MenuFlyout>
+                <MenuFlyoutItem Text="Cut" Click="OnMenuItemClick">
+                  <MenuFlyoutItem.KeyboardAccelerators>
+                    <KeyboardAccelerator Key="X" Modifiers="Control" />
+                  </MenuFlyoutItem.KeyboardAccelerators>
+                </MenuFlyoutItem>
+                <MenuFlyoutItem Text="Copy" Click="OnMenuItemClick">
+                  <MenuFlyoutItem.KeyboardAccelerators>
+                    <KeyboardAccelerator Key="C" Modifiers="Control" />
+                  </MenuFlyoutItem.KeyboardAccelerators>
+                </MenuFlyoutItem>
+                <MenuFlyoutSeparator />
+                <MenuFlyoutSubItem Text="Send to">
+                  <MenuFlyoutItem Text="Desktop" Click="OnMenuItemClick" />
+                  <MenuFlyoutItem Text="Archive" Click="OnMenuItemClick" />
+                </MenuFlyoutSubItem>
+                <ToggleMenuFlyoutItem Text="Pin to top" Click="OnToggleClick" />
+              </MenuFlyout>
+            </Border.ContextFlyout>
+          </Border>
+
+          <Grid ColumnSpacing="12">
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="*" />
+              <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="EVENT LOG" Style="{StaticResource LabKicker}" VerticalAlignment="Center" />
+            <Button Grid.Column="1"
+                    Content="Clear"
+                    Style="{StaticResource LabGhostButton}"
+                    Click="OnClearLogClick" />
+          </Grid>
+
+          <Border Background="{StaticResource LabPaperBrush}"
+                  BorderBrush="{StaticResource LabLine2Brush}"
+                  BorderThickness="1"
+                  CornerRadius="{StaticResource LabRadius}"
+                  Height="140">
+            <ScrollViewer Padding="12">
+              <TextBlock x:Name="EventLogText"
+                         Text="Events will be logged here."
+                         Style="{StaticResource LabMonoLabel}"
+                         TextWrapping="Wrap" />
+            </ScrollViewer>
+          </Border>
+        </StackPanel>
+      </Grid>
+    </Border>
+
+    <!-- Annotate -->
+    <TextBlock Margin="0,16,0,0" FontSize="14" TextWrapping="Wrap">
+      <Run Text="Question:"
+           FontFamily="{StaticResource LabUiMediumFont}"
+           Foreground="{StaticResource LabInkBrush}" />
+      <Run Text=" does a keyboard-invoked context menu report a position, or does it report none?"
+           FontFamily="{StaticResource LabUiFont}"
+           Foreground="{StaticResource LabMutedBrush}" />
+    </TextBlock>
+
+    <Rectangle Height="1" Fill="{StaticResource LabLineBrush}" Margin="0,32" />
+
+    <!-- Live readouts -->
+    <TextBlock Text="MENU SURFACE" Style="{StaticResource LabKicker}" Margin="0,0,0,4" />
+
+    <Border BorderBrush="{StaticResource LabLineBrush}" BorderThickness="0,1,0,0" Padding="0,16">
+      <Grid>
+        <TextBlock Text="Accelerator hints" Style="{StaticResource LabBody}" />
+        <TextBlock Text="rendered from KeyboardAccelerators" Style="{StaticResource LabMonoLabel}" HorizontalAlignment="Right" />
+      </Grid>
+    </Border>
+    <Border BorderBrush="{StaticResource LabLineBrush}" BorderThickness="0,1,0,0" Padding="0,16">
+      <Grid>
+        <TextBlock Text="Nesting depth" Style="{StaticResource LabBody}" />
+        <TextBlock Text="MenuFlyoutSubItem · 2 levels" Style="{StaticResource LabMonoLabel}" HorizontalAlignment="Right" />
+      </Grid>
+    </Border>
+    <Border BorderBrush="{StaticResource LabLineBrush}" BorderThickness="0,1,0,1" Padding="0,16">
+      <Grid>
+        <TextBlock Text="Context events" Style="{StaticResource LabBody}" />
+        <TextBlock Text="ContextRequested · ContextCanceled" Style="{StaticResource LabMonoLabel}" HorizontalAlignment="Right" />
+      </Grid>
+    </Border>
+
+  </StackPanel>
+</UserControl>

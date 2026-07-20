@@ -1,0 +1,222 @@
+<UserControl x:Class="A11yCapture.Presentation.Sections.VectorGraphicsSection"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+  <StackPanel>
+
+    <TextBlock Text="DEMO · SINGLE CAPABILITY" Style="{StaticResource LabKicker}" Margin="0,0,0,12" />
+    <TextBlock Text="Vector graphics"
+               Style="{StaticResource LabTitle}"
+               AutomationProperties.HeadingLevel="Level1"
+               Margin="0,0,0,12" />
+    <TextBlock Style="{StaticResource LabLede}" MaxWidth="520" HorizontalAlignment="Left"
+               Text="Skia now honours the full stroke vocabulary: line caps, dash patterns, and joins, plus a Transform applied directly to a Geometry." />
+
+    <!-- Stage 1: caps and dashes -->
+    <Border Background="{StaticResource LabGray1Brush}"
+            BorderBrush="{StaticResource LabLineBrush}"
+            BorderThickness="1"
+            CornerRadius="{StaticResource LabRadius}"
+            Padding="32"
+            Margin="0,32,0,0">
+      <Grid>
+        <TextBlock Text="FIG.05 · CAPS" Style="{StaticResource LabKicker}"
+                   VerticalAlignment="Top" HorizontalAlignment="Left"
+                   Margin="-20,-20,0,0" />
+
+        <StackPanel Spacing="14">
+          <Grid ColumnSpacing="16">
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="90" />
+              <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="FLAT" Style="{StaticResource LabKicker}" VerticalAlignment="Center" />
+            <Canvas Grid.Column="1" Height="24">
+              <Line Stroke="{StaticResource LabInkBrush}" StrokeThickness="16"
+                    StrokeStartLineCap="Flat" StrokeEndLineCap="Flat"
+                    X1="8" Y1="12" X2="330" Y2="12" />
+            </Canvas>
+          </Grid>
+          <Grid ColumnSpacing="16">
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="90" />
+              <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="ROUND" Style="{StaticResource LabKicker}" VerticalAlignment="Center" />
+            <Canvas Grid.Column="1" Height="24">
+              <Line Stroke="{StaticResource LabInkBrush}" StrokeThickness="16"
+                    StrokeStartLineCap="Round" StrokeEndLineCap="Round"
+                    X1="8" Y1="12" X2="330" Y2="12" />
+            </Canvas>
+          </Grid>
+          <Grid ColumnSpacing="16">
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="90" />
+              <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="SQUARE" Style="{StaticResource LabKicker}" VerticalAlignment="Center" />
+            <Canvas Grid.Column="1" Height="24">
+              <Line Stroke="{StaticResource LabInkBrush}" StrokeThickness="16"
+                    StrokeStartLineCap="Square" StrokeEndLineCap="Square"
+                    X1="8" Y1="12" X2="330" Y2="12" />
+            </Canvas>
+          </Grid>
+          <Grid ColumnSpacing="16">
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="90" />
+              <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="TRIANGLE" Style="{StaticResource LabKicker}" VerticalAlignment="Center" />
+            <Canvas Grid.Column="1" Height="24">
+              <Line Stroke="{StaticResource LabInkBrush}" StrokeThickness="16"
+                    StrokeStartLineCap="Triangle" StrokeEndLineCap="Triangle"
+                    X1="8" Y1="12" X2="330" Y2="12" />
+            </Canvas>
+          </Grid>
+
+          <Rectangle Height="1" Fill="{StaticResource LabLineBrush}" Margin="0,4" />
+
+          <Grid ColumnSpacing="16">
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="90" />
+              <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="DASH 4 2" Style="{StaticResource LabKicker}" VerticalAlignment="Center" />
+            <Canvas Grid.Column="1" Height="16">
+              <Line Stroke="{StaticResource LabInkBrush}" StrokeThickness="7"
+                    StrokeDashArray="4 2" StrokeDashCap="Flat"
+                    X1="8" Y1="8" X2="330" Y2="8" />
+            </Canvas>
+          </Grid>
+          <Grid ColumnSpacing="16">
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="90" />
+              <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="DASH 1 2" Style="{StaticResource LabKicker}" VerticalAlignment="Center" />
+            <Canvas Grid.Column="1" Height="16">
+              <Line Stroke="{StaticResource LabAccentBrush}" StrokeThickness="7"
+                    StrokeDashArray="1 2" StrokeDashCap="Round"
+                    X1="8" Y1="8" X2="330" Y2="8" />
+            </Canvas>
+          </Grid>
+        </StackPanel>
+      </Grid>
+    </Border>
+
+    <!-- Stage 2: joins -->
+    <Border Background="{StaticResource LabGray1Brush}"
+            BorderBrush="{StaticResource LabLineBrush}"
+            BorderThickness="1"
+            CornerRadius="{StaticResource LabRadius}"
+            Padding="32"
+            Margin="0,24,0,0">
+      <Grid>
+        <TextBlock Text="FIG.06 · JOINS" Style="{StaticResource LabKicker}"
+                   VerticalAlignment="Top" HorizontalAlignment="Left"
+                   Margin="-20,-20,0,0" />
+
+        <StackPanel Orientation="Horizontal" Spacing="40" HorizontalAlignment="Center">
+          <StackPanel Spacing="10">
+            <Canvas Width="110" Height="80">
+              <Polyline Stroke="{StaticResource LabInkBrush}" StrokeThickness="14"
+                        StrokeLineJoin="Miter" Points="10,72 55,12 100,72" />
+            </Canvas>
+            <TextBlock Text="MITER" Style="{StaticResource LabKicker}" HorizontalAlignment="Center" />
+          </StackPanel>
+          <StackPanel Spacing="10">
+            <Canvas Width="110" Height="80">
+              <Polyline Stroke="{StaticResource LabInkBrush}" StrokeThickness="14"
+                        StrokeLineJoin="Bevel" Points="10,72 55,12 100,72" />
+            </Canvas>
+            <TextBlock Text="BEVEL" Style="{StaticResource LabKicker}" HorizontalAlignment="Center" />
+          </StackPanel>
+          <StackPanel Spacing="10">
+            <Canvas Width="110" Height="80">
+              <Polyline Stroke="{StaticResource LabInkBrush}" StrokeThickness="14"
+                        StrokeLineJoin="Round" Points="10,72 55,12 100,72" />
+            </Canvas>
+            <TextBlock Text="ROUND" Style="{StaticResource LabKicker}" HorizontalAlignment="Center" />
+          </StackPanel>
+        </StackPanel>
+      </Grid>
+    </Border>
+
+    <!-- Stage 3: animated Geometry.Transform -->
+    <Border Background="{StaticResource LabGray1Brush}"
+            BorderBrush="{StaticResource LabLineBrush}"
+            BorderThickness="1"
+            CornerRadius="{StaticResource LabRadius}"
+            Padding="32"
+            Margin="0,24,0,0">
+      <Grid>
+        <TextBlock Text="FIG.07 · GEOMETRY.TRANSFORM" Style="{StaticResource LabKicker}"
+                   VerticalAlignment="Top" HorizontalAlignment="Left"
+                   Margin="-20,-20,0,0" />
+
+        <StackPanel Spacing="16" HorizontalAlignment="Center">
+          <Canvas Width="180" Height="180" HorizontalAlignment="Center">
+            <!-- Hairline guide so the rotation reads against a fixed frame -->
+            <Rectangle Canvas.Left="50" Canvas.Top="50" Width="80" Height="80"
+                       Stroke="{StaticResource LabLine2Brush}" StrokeThickness="1"
+                       StrokeDashArray="3 3" />
+            <Path Fill="{StaticResource LabAccentBrush}">
+              <Path.Data>
+                <RectangleGeometry Rect="50,50,80,80">
+                  <RectangleGeometry.Transform>
+                    <RotateTransform x:Name="SpinTransform" CenterX="90" CenterY="90" />
+                  </RectangleGeometry.Transform>
+                </RectangleGeometry>
+              </Path.Data>
+            </Path>
+          </Canvas>
+          <ToggleButton x:Name="SpinToggle"
+                        Content="Animate"
+                        IsChecked="True"
+                        Style="{StaticResource LabToggleChip}"
+                        HorizontalAlignment="Center"
+                        Checked="OnSpinToggled"
+                        Unchecked="OnSpinToggled" />
+        </StackPanel>
+      </Grid>
+    </Border>
+
+    <!-- Annotate -->
+    <TextBlock Margin="0,16,0,0" FontSize="14" TextWrapping="Wrap">
+      <Run Text="Question:"
+           FontFamily="{StaticResource LabUiMediumFont}"
+           Foreground="{StaticResource LabInkBrush}" />
+      <Run Text=" the geometry rotates while its element stays put. What is actually being transformed?"
+           FontFamily="{StaticResource LabUiFont}"
+           Foreground="{StaticResource LabMutedBrush}" />
+    </TextBlock>
+
+    <Rectangle Height="1" Fill="{StaticResource LabLineBrush}" Margin="0,32" />
+
+    <!-- Live readouts -->
+    <TextBlock Text="STROKE SURFACE" Style="{StaticResource LabKicker}" Margin="0,0,0,4" />
+
+    <Border BorderBrush="{StaticResource LabLineBrush}" BorderThickness="0,1,0,0" Padding="0,16">
+      <Grid>
+        <TextBlock Text="Caps" Style="{StaticResource LabBody}" />
+        <TextBlock Text="Flat · Round · Square · Triangle" Style="{StaticResource LabMonoLabel}" HorizontalAlignment="Right" />
+      </Grid>
+    </Border>
+    <Border BorderBrush="{StaticResource LabLineBrush}" BorderThickness="0,1,0,0" Padding="0,16">
+      <Grid>
+        <TextBlock Text="Joins" Style="{StaticResource LabBody}" />
+        <TextBlock Text="Miter · Bevel · Round" Style="{StaticResource LabMonoLabel}" HorizontalAlignment="Right" />
+      </Grid>
+    </Border>
+    <Border BorderBrush="{StaticResource LabLineBrush}" BorderThickness="0,1,0,1" Padding="0,16">
+      <Grid>
+        <TextBlock Text="Geometry.Transform" Style="{StaticResource LabBody}" />
+        <TextBlock x:Name="SpinValue" Text="rotating · 360° / 4s"
+                   Style="{StaticResource LabMonoLabel}"
+                   Foreground="{StaticResource LabInkBrush}"
+                   HorizontalAlignment="Right" />
+      </Grid>
+    </Border>
+
+  </StackPanel>
+</UserControl>

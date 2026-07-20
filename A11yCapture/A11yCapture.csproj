@@ -24,6 +24,7 @@
     <UnoFeatures>
       Material;
       Mvvm;
+      SpellChecking;
       Dsp;
       Hosting;
       Toolkit;

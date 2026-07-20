@@ -4,6 +4,38 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
+  <!-- MenuBar / MenuFlyout come from WinUI resources, not Material, and their default
+       foreground resolves near-white against paper. These must live in a theme
+       dictionary: the templates read them with {ThemeResource}, which resolves against
+       ThemeDictionaries and ignores plain root-level entries. -->
+  <ResourceDictionary.ThemeDictionaries>
+    <ResourceDictionary x:Key="Light">
+      <SolidColorBrush x:Key="MenuBarItemForeground" Color="#14161A" />
+      <SolidColorBrush x:Key="MenuBarItemForegroundPointerOver" Color="#14161A" />
+      <SolidColorBrush x:Key="MenuBarItemForegroundPressed" Color="#14161A" />
+      <SolidColorBrush x:Key="MenuBarItemForegroundSelected" Color="#14161A" />
+      <SolidColorBrush x:Key="MenuBarItemBackgroundPointerOver" Color="#F6F7F8" />
+      <SolidColorBrush x:Key="MenuBarItemBackgroundPressed" Color="#EDEEF1" />
+      <SolidColorBrush x:Key="MenuBarItemBackgroundSelected" Color="#EDEEF1" />
+      <SolidColorBrush x:Key="MenuFlyoutItemForeground" Color="#14161A" />
+      <SolidColorBrush x:Key="MenuFlyoutItemForegroundPointerOver" Color="#14161A" />
+      <SolidColorBrush x:Key="MenuFlyoutItemForegroundPressed" Color="#14161A" />
+      <SolidColorBrush x:Key="MenuFlyoutItemKeyboardAcceleratorTextForeground" Color="#6B7077" />
+      <SolidColorBrush x:Key="MenuFlyoutSubItemForeground" Color="#14161A" />
+      <SolidColorBrush x:Key="MenuFlyoutSubItemForegroundPointerOver" Color="#14161A" />
+    </ResourceDictionary>
+    <ResourceDictionary x:Key="Dark">
+      <SolidColorBrush x:Key="MenuBarItemForeground" Color="#F6F7F8" />
+      <SolidColorBrush x:Key="MenuBarItemForegroundPointerOver" Color="#F6F7F8" />
+      <SolidColorBrush x:Key="MenuBarItemForegroundPressed" Color="#F6F7F8" />
+      <SolidColorBrush x:Key="MenuBarItemForegroundSelected" Color="#F6F7F8" />
+      <SolidColorBrush x:Key="MenuFlyoutItemForeground" Color="#F6F7F8" />
+      <SolidColorBrush x:Key="MenuFlyoutItemForegroundPointerOver" Color="#F6F7F8" />
+      <SolidColorBrush x:Key="MenuFlyoutItemKeyboardAcceleratorTextForeground" Color="#9BA1A9" />
+      <SolidColorBrush x:Key="MenuFlyoutSubItemForeground" Color="#F6F7F8" />
+    </ResourceDictionary>
+  </ResourceDictionary.ThemeDictionaries>
+
   <!-- Ink and neutrals -->
   <Color x:Key="LabPaperColor">#FFFFFF</Color>
   <Color x:Key="LabGray1Color">#F6F7F8</Color>
@@ -179,6 +211,85 @@
                     <Setter Target="Root.Background" Value="{StaticResource LabInkBrush}" />
                     <Setter Target="Root.BorderBrush" Value="{StaticResource LabInkBrush}" />
                     <Setter Target="CP.Foreground" Value="{StaticResource LabPaperBrush}" />
+                  </VisualState.Setters>
+                </VisualState>
+              </VisualStateGroup>
+            </VisualStateManager.VisualStateGroups>
+          </Border>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+  <!-- Menu-bar button: flat, ink text, gray-1 on hover. Hosts a MenuFlyout.
+       Used instead of MenuBar, whose WinUI chrome renders its titles unreadably
+       on this Skia build (see the section comment). -->
+  <Style x:Key="LabMenuButton" TargetType="Button">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Foreground" Value="{StaticResource LabInkBrush}" />
+    <Setter Property="FontFamily" Value="{StaticResource LabUiFont}" />
+    <Setter Property="FontSize" Value="14" />
+    <Setter Property="Padding" Value="14,8" />
+    <Setter Property="CornerRadius" Value="{StaticResource LabRadius}" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="Button">
+          <Border x:Name="Root"
+                  Background="{TemplateBinding Background}"
+                  CornerRadius="{TemplateBinding CornerRadius}">
+            <ContentPresenter Padding="{TemplateBinding Padding}"
+                              Content="{TemplateBinding Content}"
+                              Foreground="{TemplateBinding Foreground}"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center" />
+            <VisualStateManager.VisualStateGroups>
+              <VisualStateGroup x:Name="CommonStates">
+                <VisualState x:Name="Normal" />
+                <VisualState x:Name="PointerOver">
+                  <VisualState.Setters>
+                    <Setter Target="Root.Background" Value="{StaticResource LabGray1Brush}" />
+                  </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="Pressed">
+                  <VisualState.Setters>
+                    <Setter Target="Root.Background" Value="{StaticResource LabGray2Brush}" />
+                  </VisualState.Setters>
+                </VisualState>
+              </VisualStateGroup>
+            </VisualStateManager.VisualStateGroups>
+          </Border>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+  <!-- Segmented control button: mono 12, on = ink invert (set from code) -->
+  <Style x:Key="LabSegButton" TargetType="Button">
+    <Setter Property="Background" Value="{StaticResource LabPaperBrush}" />
+    <Setter Property="Foreground" Value="{StaticResource LabMutedBrush}" />
+    <Setter Property="FontFamily" Value="{StaticResource LabMonoFont}" />
+    <Setter Property="FontSize" Value="12" />
+    <Setter Property="Padding" Value="10,4" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="Button">
+          <Border x:Name="Root" Background="{TemplateBinding Background}">
+            <ContentPresenter Padding="{TemplateBinding Padding}"
+                              Content="{TemplateBinding Content}"
+                              Foreground="{TemplateBinding Foreground}"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center" />
+            <VisualStateManager.VisualStateGroups>
+              <VisualStateGroup x:Name="CommonStates">
+                <VisualState x:Name="Normal" />
+                <VisualState x:Name="PointerOver">
+                  <VisualState.Setters>
+                    <Setter Target="Root.Opacity" Value="0.75" />
+                  </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="Pressed">
+                  <VisualState.Setters>
+                    <Setter Target="Root.Opacity" Value="0.6" />
                   </VisualState.Setters>
                 </VisualState>
               </VisualStateGroup>
