@@ -18,16 +18,39 @@
                  Style="{StaticResource TitleLarge}"
                  AutomationProperties.HeadingLevel="Level1" />
 
-      <!-- Sequence 3 beat 2: ARIA role override on the WASM head -->
+      <!-- Sequence 3 beat 2: ARIA role override on the WASM head.
+           Borders are peerless, so Role fully overrides; on a Button the
+           peer-derived role wins and Role is only a fallback. -->
       <StackPanel Orientation="Horizontal"
                   Spacing="8"
                   uut:AutomationPropertiesExtensions.Role="tablist">
-        <Button Content="Overview"
-                uut:AutomationPropertiesExtensions.Role="tab" />
-        <Button Content="Details"
-                uut:AutomationPropertiesExtensions.Role="tab" />
-        <Button Content="Settings"
-                uut:AutomationPropertiesExtensions.Role="tab" />
+        <Border uut:AutomationPropertiesExtensions.Role="tab"
+                AutomationProperties.Name="Overview"
+                Background="{ThemeResource PrimaryBrush}"
+                CornerRadius="20"
+                Padding="16,8">
+          <TextBlock Text="Overview"
+                     Style="{StaticResource LabelLarge}"
+                     Foreground="{ThemeResource OnPrimaryBrush}" />
+        </Border>
+        <Border uut:AutomationPropertiesExtensions.Role="tab"
+                AutomationProperties.Name="Details"
+                Background="{ThemeResource SurfaceVariantBrush}"
+                CornerRadius="20"
+                Padding="16,8">
+          <TextBlock Text="Details"
+                     Style="{StaticResource LabelLarge}"
+                     Foreground="{ThemeResource OnSurfaceVariantBrush}" />
+        </Border>
+        <Border uut:AutomationPropertiesExtensions.Role="tab"
+                AutomationProperties.Name="Settings"
+                Background="{ThemeResource SurfaceVariantBrush}"
+                CornerRadius="20"
+                Padding="16,8">
+          <TextBlock Text="Settings"
+                     Style="{StaticResource LabelLarge}"
+                     Foreground="{ThemeResource OnSurfaceVariantBrush}" />
+        </Border>
       </StackPanel>
 
       <TextBox Header="Customer name"
