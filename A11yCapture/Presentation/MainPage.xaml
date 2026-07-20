@@ -215,7 +215,8 @@
                     <Border BorderBrush="{StaticResource LabLineBrush}"
                             BorderThickness="1"
                             CornerRadius="{StaticResource LabRadius}">
-                      <ListView AutomationProperties.Name="Customers" SelectionMode="Single">
+                      <ListView AutomationProperties.Name="Customers" SelectionMode="Single"
+                                Padding="12,4">
                         <x:String>Contoso</x:String>
                         <x:String>Fabrikam</x:String>
                         <x:String>Northwind</x:String>
