@@ -5,6 +5,31 @@
       NavigationCacheMode="Required"
       Background="{StaticResource LabPaperBrush}">
 
+  <Page.Resources>
+    <!-- One quadrant of the Uno Platform knot fills at a time: 600ms each, 2.4s loop.
+         Discrete brush swaps; loop is gated on AnimationsEnabled in code-behind. -->
+    <Storyboard x:Name="LogoQuadrantLoop" RepeatBehavior="Forever">
+      <ObjectAnimationUsingKeyFrames Storyboard.TargetName="LogoArmTop" Storyboard.TargetProperty="Fill">
+        <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{StaticResource LabInkBrush}" />
+        <DiscreteObjectKeyFrame KeyTime="0:0:0.6" Value="Transparent" />
+      </ObjectAnimationUsingKeyFrames>
+      <ObjectAnimationUsingKeyFrames Storyboard.TargetName="LogoArmRight" Storyboard.TargetProperty="Fill">
+        <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Transparent" />
+        <DiscreteObjectKeyFrame KeyTime="0:0:0.6" Value="{StaticResource LabInkBrush}" />
+        <DiscreteObjectKeyFrame KeyTime="0:0:1.2" Value="Transparent" />
+      </ObjectAnimationUsingKeyFrames>
+      <ObjectAnimationUsingKeyFrames Storyboard.TargetName="LogoArmBottom" Storyboard.TargetProperty="Fill">
+        <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Transparent" />
+        <DiscreteObjectKeyFrame KeyTime="0:0:1.2" Value="{StaticResource LabInkBrush}" />
+        <DiscreteObjectKeyFrame KeyTime="0:0:1.8" Value="Transparent" />
+      </ObjectAnimationUsingKeyFrames>
+      <ObjectAnimationUsingKeyFrames Storyboard.TargetName="LogoArmLeft" Storyboard.TargetProperty="Fill">
+        <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Transparent" />
+        <DiscreteObjectKeyFrame KeyTime="0:0:1.8" Value="{StaticResource LabInkBrush}" />
+      </ObjectAnimationUsingKeyFrames>
+    </Storyboard>
+  </Page.Resources>
+
   <Grid>
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="232" />
@@ -21,18 +46,28 @@
             BorderThickness="0,0,1,1"
             Padding="16,0">
       <StackPanel Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
-        <Grid Width="18" Height="18" ColumnSpacing="2" RowSpacing="2" VerticalAlignment="Center">
-          <Grid.ColumnDefinitions>
-            <ColumnDefinition /><ColumnDefinition />
-          </Grid.ColumnDefinitions>
-          <Grid.RowDefinitions>
-            <RowDefinition /><RowDefinition />
-          </Grid.RowDefinitions>
-          <Rectangle Fill="{StaticResource LabInkBrush}" RadiusX="1" RadiusY="1" />
-          <Rectangle Grid.Column="1" Fill="{StaticResource LabLine2Brush}" RadiusX="1" RadiusY="1" />
-          <Rectangle Grid.Row="1" Fill="{StaticResource LabLine2Brush}" RadiusX="1" RadiusY="1" />
-          <Rectangle Grid.Row="1" Grid.Column="1" Fill="{StaticResource LabInkBrush}" RadiusX="1" RadiusY="1" />
-        </Grid>
+        <!-- Uno Platform knot: outline arms, one quadrant filled at a time -->
+        <Viewbox Width="20" Height="20" VerticalAlignment="Center"
+                 AutomationProperties.AccessibilityView="Raw">
+          <Grid>
+            <Path x:Name="LogoArmTop"
+                  Stroke="{StaticResource LabInkBrush}" StrokeThickness="10"
+                  Fill="{StaticResource LabInkBrush}"
+                  Data="M131.802 110.464L156.865 85.1239C168.742 73.2472 173.363 66.2918 173.377 60.3051C173.391 54.3183 168.521 46.9293 156.57 34.965L142.733 21.2895C128.652 7.20808 120.133 10.4229 109.271 21.2618L109.137 21.391C103.187 26.9811 96.633 33.6689 92.3481 40.735C88.3677 41.0164 83.2342 42.3724 76.9199 46.5973C80.4161 33.4844 91.3472 21.7968 100.904 12.789C111.692 2.02384 128.615 -9.61765 151.091 12.8536L164.928 26.5291C177.496 39.0976 185.263 49.1294 185.222 60.3281C185.222 71.3469 177.565 81.1942 165.246 93.5091L140.261 118.835L131.802 110.464Z" />
+            <Path x:Name="LogoArmRight"
+                  Stroke="{StaticResource LabInkBrush}" StrokeThickness="10"
+                  Fill="Transparent"
+                  Data="M167.935 150.07H167.889C156.87 150.047 147.023 142.409 134.708 130.094L107.957 103.555L116.319 95.1049L143.107 121.667C154.979 133.544 161.93 138.165 167.921 138.179C173.973 138.179 181.297 133.309 193.243 121.372L206.918 107.535C213.805 100.644 216.839 94.6206 216.217 89.1458C215.709 84.681 212.767 79.8935 206.941 74.0727L206.817 73.939C200.53 67.2557 192.842 59.7976 184.812 55.6696C183.322 48.0362 178.433 42.0263 177.741 40.9102C192.427 43.0687 205.53 55.2083 215.419 65.7152C226.184 76.5034 237.826 93.426 215.35 115.902L201.679 129.739C189.152 142.303 179.129 150.07 167.935 150.07Z" />
+            <Path x:Name="LogoArmBottom"
+                  Stroke="{StaticResource LabInkBrush}" StrokeThickness="10"
+                  Fill="Transparent"
+                  Data="M135.358 192.398C127.923 192.398 119.473 188.975 110.037 179.539L96.1996 165.868C69.1392 138.807 69.0792 125.667 95.8583 98.8877L122.121 72.353L130.575 80.7152L104.285 107.287C92.4083 119.163 87.7822 126.119 87.7729 132.106C87.7637 138.092 92.6297 145.481 104.58 157.446L118.417 171.121C132.499 185.198 141.018 181.992 151.88 171.149L152.013 171.02C158.397 165.024 165.523 157.667 169.743 150.029C176.159 149.485 180.946 146.777 184.553 144.494C181.468 158.151 170.121 170.323 160.223 179.64C153.96 185.876 145.634 192.398 135.358 192.398Z" />
+            <Path x:Name="LogoArmLeft"
+                  Stroke="{StaticResource LabInkBrush}" StrokeThickness="10"
+                  Fill="Transparent"
+                  Data="M82.0809 149.439C68.244 146.501 55.9153 135.016 46.5015 124.994C41.5848 120.068 34.9707 112.439 33.8869 102.91C32.8352 93.5883 36.9817 84.3959 46.5661 74.8069L60.2416 60.97C72.7917 48.4199 82.8051 40.6758 93.9946 40.6758H94.0407C105.059 40.6758 114.907 48.3322 127.222 60.6471L154.434 87.5876L146.072 96.0374L118.86 69.0784C106.96 57.1925 100.004 52.5802 94.0176 52.5802H93.9946C87.9478 52.5802 80.6188 57.4508 68.6776 69.3874L55.002 83.2244C48.1158 90.1152 45.0809 96.1389 45.7036 101.609C46.211 106.074 49.1536 110.866 54.9744 116.687L55.1035 116.816C61.0995 123.185 68.3455 130.252 75.9604 134.476C76.6107 141.197 80.5958 147.211 82.0809 149.439Z" />
+          </Grid>
+        </Viewbox>
         <TextBlock Text="SAMPLE LAB"
                    FontFamily="{StaticResource LabMonoMediumFont}"
                    FontSize="12"
