@@ -1,0 +1,10 @@
+{
+  "background_color": "#ffffff",
+  "description": "A11yCapture",
+  "display": "standalone",
+  "name": "A11yCapture",
+  "short_name": "A11yCapture",
+  "start_url": "/index.html",
+  "theme_color": "#ffffff",
+  "scope": "/"
+}

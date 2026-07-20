@@ -1,0 +1,64 @@
+<Page x:Class="A11yCapture.Presentation.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:utu="using:Uno.Toolkit.UI"
+      xmlns:uut="using:Uno.UI.Toolkit"
+      NavigationCacheMode="Required"
+      Background="{ThemeResource BackgroundBrush}">
+  <ScrollViewer IsTabStop="False">
+    <StackPanel utu:SafeArea.Insets="VisibleBounds"
+                MaxWidth="480"
+                Spacing="16"
+                Padding="32"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                AutomationProperties.LandmarkType="Main">
+
+      <TextBlock Text="Accessibility capture"
+                 Style="{StaticResource TitleLarge}"
+                 AutomationProperties.HeadingLevel="Level1" />
+
+      <!-- Sequence 3 beat 2: ARIA role override on the WASM head -->
+      <StackPanel Orientation="Horizontal"
+                  Spacing="8"
+                  uut:AutomationPropertiesExtensions.Role="tablist">
+        <Button Content="Overview"
+                uut:AutomationPropertiesExtensions.Role="tab" />
+        <Button Content="Details"
+                uut:AutomationPropertiesExtensions.Role="tab" />
+        <Button Content="Settings"
+                uut:AutomationPropertiesExtensions.Role="tab" />
+      </StackPanel>
+
+      <TextBox Header="Customer name"
+               AutomationProperties.Name="Customer name"
+               PlaceholderText="Contoso" />
+
+      <TextBlock Text="Wi-Fi"
+                 Style="{StaticResource LabelLarge}" />
+      <ToggleSwitch AutomationProperties.Name="Wi-Fi" />
+
+      <TextBlock Text="Volume"
+                 Style="{StaticResource LabelLarge}" />
+      <Slider AutomationProperties.Name="Volume"
+              Minimum="0"
+              Maximum="100"
+              Value="50"
+              StepFrequency="5" />
+
+      <ListView AutomationProperties.Name="Customers"
+                SelectionMode="Single">
+        <x:String>Contoso</x:String>
+        <x:String>Fabrikam</x:String>
+        <x:String>Northwind</x:String>
+        <x:String>Adventure Works</x:String>
+        <x:String>Tailspin</x:String>
+      </ListView>
+
+      <Button Content="Save"
+              AutomationProperties.Name="Save"
+              HorizontalAlignment="Left" />
+
+    </StackPanel>
+  </ScrollViewer>
+</Page>
