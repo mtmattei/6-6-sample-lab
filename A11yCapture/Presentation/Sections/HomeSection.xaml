@@ -4,14 +4,14 @@
 
   <StackPanel>
 
-    <TextBlock Text="REFERENCE IMPLEMENTATION" Style="{StaticResource LabKicker}" Margin="0,0,0,12" />
-    <TextBlock Text="The interface disappears so the capability can be read."
+    <TextBlock Text="SAMPLE INDEX" Style="{StaticResource LabKicker}" Margin="0,0,0,12" />
+    <TextBlock Text="Uno Platform 6.6 Samples"
                Style="{StaticResource LabTitle}"
                AutomationProperties.HeadingLevel="Level1"
                TextWrapping="Wrap"
                Margin="0,0,0,12" />
     <TextBlock Style="{StaticResource LabLede}" MaxWidth="520" HorizontalAlignment="Left"
-               Text="Each sample answers one question about Uno Platform 6.6. The chrome is monochrome and measured, so nothing competes with the thing being demonstrated." />
+               Text="One sample per capability shipped in 6.6. Each answers a single question and shows its live state, so what changed is visible rather than described." />
 
     <!-- Card index -->
     <Grid Margin="0,32,0,0" ColumnSpacing="12" RowSpacing="12">
