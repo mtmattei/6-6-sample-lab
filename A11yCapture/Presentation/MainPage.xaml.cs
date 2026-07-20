@@ -6,7 +6,13 @@ namespace A11yCapture.Presentation;
 public sealed partial class MainPage : Page
 {
     /// <summary>One row of the nav rail, paired with the section it reveals.</summary>
-    private sealed record NavEntry(Button Item, Rectangle Tick, TextBlock Label, UIElement Section, string Crumb);
+    private sealed record NavEntry(
+        string Slug,
+        Button Item,
+        Rectangle Tick,
+        TextBlock Label,
+        UIElement Section,
+        string Crumb);
 
     private readonly List<NavEntry> _entries;
 
@@ -16,13 +22,14 @@ public sealed partial class MainPage : Page
 
         _entries = new List<NavEntry>
         {
-            new(NavAccessibility, TickAccessibility, LabelAccessibility, AccessibilityView, "accessibility"),
-            new(NavScrollAnchor, TickScrollAnchor, LabelScrollAnchor, ScrollAnchorView, "scroll-anchoring"),
-            new(NavInput, TickInput, LabelInput, InputView, "input-ime"),
-            new(NavText, TickText, LabelText, TextView, "text-features"),
-            new(NavElementTheme, TickElementTheme, LabelElementTheme, ElementThemeView, "element-theming"),
-            new(NavVectorGraphics, TickVectorGraphics, LabelVectorGraphics, VectorGraphicsView, "vector-graphics"),
-            new(NavMenuFlyout, TickMenuFlyout, LabelMenuFlyout, MenuFlyoutView, "menus-context"),
+            new("index", NavHome, TickHome, LabelHome, HomeView, "index"),
+            new("accessibility", NavAccessibility, TickAccessibility, LabelAccessibility, AccessibilityView, "accessibility"),
+            new("scroll-anchoring", NavScrollAnchor, TickScrollAnchor, LabelScrollAnchor, ScrollAnchorView, "scroll-anchoring"),
+            new("input-ime", NavInput, TickInput, LabelInput, InputView, "input-ime"),
+            new("text-features", NavText, TickText, LabelText, TextView, "text-features"),
+            new("element-theming", NavElementTheme, TickElementTheme, LabelElementTheme, ElementThemeView, "element-theming"),
+            new("vector-graphics", NavVectorGraphics, TickVectorGraphics, LabelVectorGraphics, VectorGraphicsView, "vector-graphics"),
+            new("menus-context", NavMenuFlyout, TickMenuFlyout, LabelMenuFlyout, MenuFlyoutView, "menus-context"),
         };
 
         Loaded += OnLoaded;
@@ -40,13 +47,24 @@ public sealed partial class MainPage : Page
 
     private void NavItem_Click(object sender, RoutedEventArgs e)
     {
+        var key = _entries.FirstOrDefault(x => x.Item == (Button)sender)?.Slug;
+        if (key is not null)
+        {
+            Navigate(key);
+        }
+    }
+
+    private void OnSampleSelected(object? sender, string key)
+        => Navigate(key);
+
+    private void Navigate(string key)
+    {
         // The streaming feed must not keep inserting while its section is hidden.
         ScrollAnchorView.Deactivate();
 
-        var target = (Button)sender;
         foreach (var entry in _entries)
         {
-            var active = entry.Item == target;
+            var active = entry.Slug == key;
 
             entry.Section.Visibility = active ? Visibility.Visible : Visibility.Collapsed;
             entry.Item.Background = Brush(active ? "LabGray1Brush" : null);

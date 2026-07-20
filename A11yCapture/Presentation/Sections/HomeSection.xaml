@@ -1,0 +1,127 @@
+<UserControl x:Class="A11yCapture.Presentation.Sections.HomeSection"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+  <StackPanel>
+
+    <TextBlock Text="REFERENCE IMPLEMENTATION" Style="{StaticResource LabKicker}" Margin="0,0,0,12" />
+    <TextBlock Text="The interface disappears so the capability can be read."
+               Style="{StaticResource LabTitle}"
+               AutomationProperties.HeadingLevel="Level1"
+               TextWrapping="Wrap"
+               Margin="0,0,0,12" />
+    <TextBlock Style="{StaticResource LabLede}" MaxWidth="520" HorizontalAlignment="Left"
+               Text="Each sample answers one question about Uno Platform 6.6. The chrome is monochrome and measured, so nothing competes with the thing being demonstrated." />
+
+    <!-- Card index -->
+    <Grid Margin="0,32,0,0" ColumnSpacing="12" RowSpacing="12">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="*" />
+      </Grid.ColumnDefinitions>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+      </Grid.RowDefinitions>
+
+      <Button Grid.Row="0" Grid.Column="0"
+              Style="{StaticResource LabCard}"
+              Tag="accessibility"
+              AutomationProperties.Name="Open Accessibility sample"
+              Click="OnCardClick">
+        <StackPanel Spacing="6">
+          <TextBlock Text="DEMO" Style="{StaticResource LabKicker}" Margin="0,0,0,6" />
+          <TextBlock Text="Accessibility" Style="{StaticResource LabCardTitle}" />
+          <TextBlock Style="{StaticResource LabBody}" Foreground="{StaticResource LabMutedBrush}"
+                     Text="How a screen reader reads and drives a Skia-rendered UI." />
+        </StackPanel>
+      </Button>
+
+      <Button Grid.Row="0" Grid.Column="1"
+              Style="{StaticResource LabCard}"
+              Tag="scroll-anchoring"
+              AutomationProperties.Name="Open Scroll anchoring sample"
+              Click="OnCardClick">
+        <StackPanel Spacing="6">
+          <TextBlock Text="DEMO" Style="{StaticResource LabKicker}" Margin="0,0,0,6" />
+          <TextBlock Text="Scroll Anchoring" Style="{StaticResource LabCardTitle}" />
+          <TextBlock Style="{StaticResource LabBody}" Foreground="{StaticResource LabMutedBrush}"
+                     Text="How the viewport holds its place while items land above it." />
+        </StackPanel>
+      </Button>
+
+      <Button Grid.Row="1" Grid.Column="0"
+              Style="{StaticResource LabCard}"
+              Tag="input-ime"
+              AutomationProperties.Name="Open Input and IME sample"
+              Click="OnCardClick">
+        <StackPanel Spacing="6">
+          <TextBlock Text="DEMO" Style="{StaticResource LabKicker}" Margin="0,0,0,6" />
+          <TextBlock Text="Input &amp; IME" Style="{StaticResource LabCardTitle}" />
+          <TextBlock Style="{StaticResource LabBody}" Foreground="{StaticResource LabMutedBrush}"
+                     Text="How composed input and complex scripts reach a TextBox." />
+        </StackPanel>
+      </Button>
+
+      <Button Grid.Row="1" Grid.Column="1"
+              Style="{StaticResource LabCard}"
+              Tag="text-features"
+              AutomationProperties.Name="Open Text features sample"
+              Click="OnCardClick">
+        <StackPanel Spacing="6">
+          <TextBlock Text="DEMO" Style="{StaticResource LabKicker}" Margin="0,0,0,6" />
+          <TextBlock Text="Text Features" Style="{StaticResource LabCardTitle}" />
+          <TextBlock Style="{StaticResource LabBody}" Foreground="{StaticResource LabMutedBrush}"
+                     Text="How spell check, highlighters, trimming, and fallback behave." />
+        </StackPanel>
+      </Button>
+
+      <Button Grid.Row="2" Grid.Column="0"
+              Style="{StaticResource LabCard}"
+              Tag="element-theming"
+              AutomationProperties.Name="Open Element theming sample"
+              Click="OnCardClick">
+        <StackPanel Spacing="6">
+          <TextBlock Text="DEMO" Style="{StaticResource LabKicker}" Margin="0,0,0,6" />
+          <TextBlock Text="Element Theming" Style="{StaticResource LabCardTitle}" />
+          <TextBlock Style="{StaticResource LabBody}" Foreground="{StaticResource LabMutedBrush}"
+                     Text="How a theme applies to a subtree instead of the whole window." />
+        </StackPanel>
+      </Button>
+
+      <Button Grid.Row="2" Grid.Column="1"
+              Style="{StaticResource LabCard}"
+              Tag="vector-graphics"
+              AutomationProperties.Name="Open Vector graphics sample"
+              Click="OnCardClick">
+        <StackPanel Spacing="6">
+          <TextBlock Text="DEMO" Style="{StaticResource LabKicker}" Margin="0,0,0,6" />
+          <TextBlock Text="Vector Graphics" Style="{StaticResource LabCardTitle}" />
+          <TextBlock Style="{StaticResource LabBody}" Foreground="{StaticResource LabMutedBrush}"
+                     Text="How strokes are capped, dashed, joined, and transformed." />
+        </StackPanel>
+      </Button>
+
+      <Button Grid.Row="3" Grid.Column="0"
+              Style="{StaticResource LabCard}"
+              Tag="menus-context"
+              AutomationProperties.Name="Open Menus and context sample"
+              Click="OnCardClick">
+        <StackPanel Spacing="6">
+          <TextBlock Text="DEMO" Style="{StaticResource LabKicker}" Margin="0,0,0,6" />
+          <TextBlock Text="Menus &amp; Context" Style="{StaticResource LabCardTitle}" />
+          <TextBlock Style="{StaticResource LabBody}" Foreground="{StaticResource LabMutedBrush}"
+                     Text="How nested menus, accelerators, and context events behave." />
+        </StackPanel>
+      </Button>
+    </Grid>
+
+    <Rectangle Height="1" Fill="{StaticResource LabLineBrush}" Margin="0,32" />
+
+    <TextBlock Style="{StaticResource LabMonoLabel}" TextWrapping="Wrap"
+               Text="Pick a card, or use the rail on the left. Every sample runs on the same Skia renderer across desktop and WebAssembly." />
+
+  </StackPanel>
+</UserControl>

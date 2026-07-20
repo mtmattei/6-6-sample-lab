@@ -221,6 +221,56 @@
     </Setter>
   </Style>
 
+  <!-- Index card: hairline border that firms up on hover, no shadow, no fill. -->
+  <Style x:Key="LabCard" TargetType="Button">
+    <Setter Property="Background" Value="{StaticResource LabPaperBrush}" />
+    <Setter Property="BorderBrush" Value="{StaticResource LabLineBrush}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="CornerRadius" Value="{StaticResource LabRadius}" />
+    <Setter Property="Padding" Value="16" />
+    <Setter Property="HorizontalAlignment" Value="Stretch" />
+    <Setter Property="HorizontalContentAlignment" Value="Left" />
+    <Setter Property="VerticalContentAlignment" Value="Top" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="Button">
+          <Border x:Name="Root"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  CornerRadius="{TemplateBinding CornerRadius}">
+            <ContentPresenter Padding="{TemplateBinding Padding}"
+                              Content="{TemplateBinding Content}"
+                              HorizontalAlignment="Stretch"
+                              VerticalAlignment="Top" />
+            <VisualStateManager.VisualStateGroups>
+              <VisualStateGroup x:Name="CommonStates">
+                <VisualState x:Name="Normal" />
+                <VisualState x:Name="PointerOver">
+                  <VisualState.Setters>
+                    <Setter Target="Root.BorderBrush" Value="{StaticResource LabLine2Brush}" />
+                  </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="Pressed">
+                  <VisualState.Setters>
+                    <Setter Target="Root.BorderBrush" Value="{StaticResource LabInkBrush}" />
+                    <Setter Target="Root.Background" Value="{StaticResource LabGray1Brush}" />
+                  </VisualState.Setters>
+                </VisualState>
+              </VisualStateGroup>
+            </VisualStateManager.VisualStateGroups>
+          </Border>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+  <Style x:Key="LabCardTitle" TargetType="TextBlock">
+    <Setter Property="FontFamily" Value="{StaticResource LabUiSemiBoldFont}" />
+    <Setter Property="FontSize" Value="16" />
+    <Setter Property="Foreground" Value="{StaticResource LabInkBrush}" />
+  </Style>
+
   <!-- Menu-bar button: flat, ink text, gray-1 on hover. Hosts a MenuFlyout.
        Used instead of MenuBar, whose WinUI chrome renders its titles unreadably
        on this Skia build (see the section comment). -->

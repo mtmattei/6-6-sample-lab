@@ -88,7 +88,7 @@
           <TextBlock Text="lab" Style="{StaticResource LabMonoLabel}" />
           <TextBlock Text="/" Style="{StaticResource LabMonoLabel}" Foreground="{StaticResource LabLine2Brush}" />
           <TextBlock x:Name="CrumbText"
-                     Text="accessibility"
+                     Text="index"
                      FontFamily="{StaticResource LabMonoMediumFont}"
                      FontSize="12"
                      CharacterSpacing="40"
@@ -109,21 +109,38 @@
             Padding="12,16"
             uut:AutomationPropertiesExtensions.Role="navigation">
       <StackPanel Spacing="4">
-        <TextBlock Text="DEMOS" Style="{StaticResource LabKicker}" Margin="8,0,8,8" />
+        <TextBlock Text="OVERVIEW" Style="{StaticResource LabKicker}" Margin="8,0,8,8" />
+
+        <Button x:Name="NavHome"
+                Style="{StaticResource LabNavItem}"
+                Background="{StaticResource LabGray1Brush}"
+                AutomationProperties.Name="Index"
+                Click="NavItem_Click">
+          <StackPanel Orientation="Horizontal" Spacing="12">
+            <Rectangle x:Name="TickHome" Width="2" Height="14" RadiusX="1" RadiusY="1"
+                       Fill="{StaticResource LabAccentBrush}" VerticalAlignment="Center" />
+            <TextBlock x:Name="LabelHome"
+                       Text="Index"
+                       FontFamily="{StaticResource LabUiMediumFont}"
+                       FontSize="14"
+                       Foreground="{StaticResource LabInkBrush}" />
+          </StackPanel>
+        </Button>
+
+        <TextBlock Text="DEMOS" Style="{StaticResource LabKicker}" Margin="8,24,8,8" />
 
         <Button x:Name="NavAccessibility"
                 Style="{StaticResource LabNavItem}"
-                Background="{StaticResource LabGray1Brush}"
                 AutomationProperties.Name="Accessibility"
                 Click="NavItem_Click">
           <StackPanel Orientation="Horizontal" Spacing="12">
             <Rectangle x:Name="TickAccessibility" Width="2" Height="14" RadiusX="1" RadiusY="1"
-                       Fill="{StaticResource LabAccentBrush}" VerticalAlignment="Center" />
+                       Fill="Transparent" VerticalAlignment="Center" />
             <TextBlock x:Name="LabelAccessibility"
                        Text="Accessibility"
-                       FontFamily="{StaticResource LabUiMediumFont}"
+                       FontFamily="{StaticResource LabUiFont}"
                        FontSize="14"
-                       Foreground="{StaticResource LabInkBrush}" />
+                       Foreground="{StaticResource LabMutedBrush}" />
           </StackPanel>
         </Button>
 
@@ -225,7 +242,8 @@
             HorizontalAlignment="Left"
             Padding="48,48,48,64"
             AutomationProperties.LandmarkType="Main">
-        <sections:AccessibilitySection x:Name="AccessibilityView" />
+        <sections:HomeSection x:Name="HomeView" SampleSelected="OnSampleSelected" />
+        <sections:AccessibilitySection x:Name="AccessibilityView" Visibility="Collapsed" />
         <sections:ScrollAnchorSection x:Name="ScrollAnchorView" Visibility="Collapsed" />
         <sections:InputSection x:Name="InputView" Visibility="Collapsed" />
         <sections:TextSection x:Name="TextView" Visibility="Collapsed" />
