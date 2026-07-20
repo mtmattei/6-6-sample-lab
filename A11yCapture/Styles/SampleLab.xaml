@@ -85,4 +85,114 @@
     <Setter Property="Padding" Value="16,7" />
   </Style>
 
+  <!-- Sidebar nav item: bare button, hover = gray-1, active state set from code -->
+  <Style x:Key="LabNavItem" TargetType="Button">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="HorizontalAlignment" Value="Stretch" />
+    <Setter Property="HorizontalContentAlignment" Value="Left" />
+    <Setter Property="Padding" Value="8,7" />
+    <Setter Property="CornerRadius" Value="{StaticResource LabRadius}" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="Button">
+          <Border x:Name="Root"
+                  Background="{TemplateBinding Background}"
+                  CornerRadius="{TemplateBinding CornerRadius}">
+            <ContentPresenter Padding="{TemplateBinding Padding}"
+                              Content="{TemplateBinding Content}"
+                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              VerticalAlignment="Center" />
+            <VisualStateManager.VisualStateGroups>
+              <VisualStateGroup x:Name="CommonStates">
+                <VisualState x:Name="Normal" />
+                <VisualState x:Name="PointerOver">
+                  <VisualState.Setters>
+                    <Setter Target="Root.Background" Value="{StaticResource LabGray1Brush}" />
+                  </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="Pressed">
+                  <VisualState.Setters>
+                    <Setter Target="Root.Background" Value="{StaticResource LabGray2Brush}" />
+                  </VisualState.Setters>
+                </VisualState>
+              </VisualStateGroup>
+            </VisualStateManager.VisualStateGroups>
+          </Border>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+  <!-- Toggle chip: outlined idle, ink-inverted when checked -->
+  <Style x:Key="LabToggleChip" TargetType="ToggleButton">
+    <Setter Property="Background" Value="{StaticResource LabPaperBrush}" />
+    <Setter Property="Foreground" Value="{StaticResource LabInkBrush}" />
+    <Setter Property="BorderBrush" Value="{StaticResource LabLine2Brush}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="CornerRadius" Value="{StaticResource LabRadius}" />
+    <Setter Property="FontFamily" Value="{StaticResource LabUiMediumFont}" />
+    <Setter Property="FontSize" Value="14" />
+    <Setter Property="Padding" Value="16,7" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="ToggleButton">
+          <Border x:Name="Root"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  CornerRadius="{TemplateBinding CornerRadius}">
+            <ContentPresenter x:Name="CP"
+                              Padding="{TemplateBinding Padding}"
+                              Content="{TemplateBinding Content}"
+                              Foreground="{TemplateBinding Foreground}"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center" />
+            <VisualStateManager.VisualStateGroups>
+              <VisualStateGroup x:Name="CommonStates">
+                <VisualState x:Name="Normal" />
+                <VisualState x:Name="PointerOver">
+                  <VisualState.Setters>
+                    <Setter Target="Root.Background" Value="{StaticResource LabGray1Brush}" />
+                  </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="Pressed">
+                  <VisualState.Setters>
+                    <Setter Target="Root.Background" Value="{StaticResource LabGray2Brush}" />
+                  </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="Checked">
+                  <VisualState.Setters>
+                    <Setter Target="Root.Background" Value="{StaticResource LabInkBrush}" />
+                    <Setter Target="Root.BorderBrush" Value="{StaticResource LabInkBrush}" />
+                    <Setter Target="CP.Foreground" Value="{StaticResource LabPaperBrush}" />
+                  </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="CheckedPointerOver">
+                  <VisualState.Setters>
+                    <Setter Target="Root.Background" Value="{StaticResource LabInkBrush}" />
+                    <Setter Target="Root.BorderBrush" Value="{StaticResource LabInkBrush}" />
+                    <Setter Target="CP.Foreground" Value="{StaticResource LabPaperBrush}" />
+                  </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="CheckedPressed">
+                  <VisualState.Setters>
+                    <Setter Target="Root.Background" Value="{StaticResource LabInkBrush}" />
+                    <Setter Target="Root.BorderBrush" Value="{StaticResource LabInkBrush}" />
+                    <Setter Target="CP.Foreground" Value="{StaticResource LabPaperBrush}" />
+                  </VisualState.Setters>
+                </VisualState>
+              </VisualStateGroup>
+            </VisualStateManager.VisualStateGroups>
+          </Border>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+  <!-- IME phase ramp: state reads by darkness; candidate uses the accent (state colour) -->
+  <SolidColorBrush x:Key="PhaseIdleBrush" Color="{StaticResource LabLine2Color}" />
+  <SolidColorBrush x:Key="PhaseComposingBrush" Color="{StaticResource LabMutedColor}" />
+  <SolidColorBrush x:Key="PhaseCandidateBrush" Color="{StaticResource LabAccentColor}" />
+  <SolidColorBrush x:Key="PhaseCommittedBrush" Color="{StaticResource LabInkColor}" />
+
 </ResourceDictionary>

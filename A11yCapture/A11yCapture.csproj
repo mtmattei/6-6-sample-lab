@@ -23,6 +23,7 @@
     -->
     <UnoFeatures>
       Material;
+      Mvvm;
       Dsp;
       Hosting;
       Toolkit;

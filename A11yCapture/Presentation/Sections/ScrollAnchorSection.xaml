@@ -1,0 +1,176 @@
+<UserControl x:Class="A11yCapture.Presentation.Sections.ScrollAnchorSection"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="using:A11yCapture.Presentation.Sections">
+
+  <UserControl.Resources>
+    <local:AnchorToAccentBrushConverter x:Key="AnchorAccent" />
+    <local:BoolToVisibilityConverter x:Key="BoolToVisibility" />
+  </UserControl.Resources>
+
+  <StackPanel>
+
+    <TextBlock Text="DEMO · SINGLE CAPABILITY" Style="{StaticResource LabKicker}" Margin="0,0,0,12" />
+    <TextBlock Text="Scroll anchoring"
+               Style="{StaticResource LabTitle}"
+               AutomationProperties.HeadingLevel="Level1"
+               Margin="0,0,0,12" />
+    <TextBlock Style="{StaticResource LabLede}" MaxWidth="520" HorizontalAlignment="Left"
+               Text="New items stream in above the fold. With anchoring on, the message being read stays put; with it off, the viewport jumps with every insert." />
+
+    <!-- Controls -->
+    <Grid Margin="0,24,0,0" ColumnSpacing="12">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto" />
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="Auto" />
+      </Grid.ColumnDefinitions>
+
+      <StackPanel Orientation="Horizontal" Spacing="12" VerticalAlignment="Center">
+        <TextBlock Text="ANCHORING" Style="{StaticResource LabKicker}" VerticalAlignment="Center" />
+        <ToggleSwitch x:Name="AnchoringSwitch"
+                      AutomationProperties.Name="Scroll anchoring"
+                      IsOn="True"
+                      Margin="0,-4"
+                      Toggled="AnchoringSwitch_Toggled" />
+      </StackPanel>
+
+      <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+        <Button x:Name="InsertButton"
+                Content="Insert 5 above"
+                Style="{StaticResource LabGhostButton}"
+                Click="InsertAbove_Click" />
+        <ToggleButton x:Name="FeedButton"
+                      Content="Simulate feed"
+                      Style="{StaticResource LabToggleChip}"
+                      Checked="Feed_Checked"
+                      Unchecked="Feed_Unchecked" />
+        <Button Content="Reset"
+                Style="{StaticResource LabGhostButton}"
+                Click="Reset_Click" />
+      </StackPanel>
+    </Grid>
+
+    <!-- Stage: the feed is the instrument -->
+    <Border Background="{StaticResource LabGray1Brush}"
+            BorderBrush="{StaticResource LabLineBrush}"
+            BorderThickness="1"
+            CornerRadius="{StaticResource LabRadius}"
+            Padding="32"
+            Margin="0,24,0,0">
+      <Grid>
+        <TextBlock Text="FIG.02" Style="{StaticResource LabKicker}"
+                   VerticalAlignment="Top" HorizontalAlignment="Left"
+                   Margin="-20,-20,0,0" />
+
+        <Border MaxWidth="520"
+                HorizontalAlignment="Center"
+                Background="{StaticResource LabPaperBrush}"
+                BorderBrush="{StaticResource LabLine2Brush}"
+                BorderThickness="1"
+                CornerRadius="{StaticResource LabRadius}">
+          <ScrollViewer x:Name="Sv"
+                        Height="340"
+                        Padding="12"
+                        VerticalAnchorRatio="0.5"
+                        VerticalScrollBarVisibility="Auto"
+                        ViewChanged="Sv_ViewChanged">
+            <ItemsRepeater x:Name="Repeater"
+                           ItemsSource="{Binding Messages}"
+                           ElementPrepared="Repeater_ElementPrepared"
+                           ElementClearing="Repeater_ElementClearing">
+              <ItemsRepeater.Layout>
+                <StackLayout Spacing="8" />
+              </ItemsRepeater.Layout>
+              <ItemsRepeater.ItemTemplate>
+                <DataTemplate x:DataType="local:ChatMessage">
+                  <Border Background="{StaticResource LabGray1Brush}"
+                          CornerRadius="4"
+                          BorderThickness="1.5"
+                          BorderBrush="{x:Bind IsAnchor, Mode=OneWay, Converter={StaticResource AnchorAccent}}">
+                    <StackPanel Padding="14,10" Spacing="4">
+                      <Grid ColumnSpacing="10">
+                        <Grid.ColumnDefinitions>
+                          <ColumnDefinition Width="Auto" />
+                          <ColumnDefinition Width="Auto" />
+                          <ColumnDefinition Width="*" />
+                          <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0"
+                                   Text="{x:Bind Label}"
+                                   FontFamily="{StaticResource LabMonoMediumFont}"
+                                   FontSize="12"
+                                   Foreground="{StaticResource LabInkBrush}"
+                                   VerticalAlignment="Center" />
+                        <TextBlock Grid.Column="1"
+                                   Text="{x:Bind Sender}"
+                                   Style="{StaticResource LabMonoLabel}"
+                                   VerticalAlignment="Center" />
+                        <Border Grid.Column="3"
+                                Background="{StaticResource LabPaperBrush}"
+                                BorderBrush="{StaticResource LabLine2Brush}"
+                                BorderThickness="1"
+                                CornerRadius="4"
+                                Padding="7,2"
+                                VerticalAlignment="Center"
+                                Visibility="{x:Bind IsLive, Converter={StaticResource BoolToVisibility}}">
+                          <TextBlock Text="NEW" Style="{StaticResource LabKicker}" FontSize="10" />
+                        </Border>
+                      </Grid>
+                      <TextBlock Text="{x:Bind Text}"
+                                 TextWrapping="Wrap"
+                                 FontFamily="{StaticResource LabUiFont}"
+                                 FontSize="14"
+                                 Foreground="{StaticResource LabInkBrush}" />
+                    </StackPanel>
+                  </Border>
+                </DataTemplate>
+              </ItemsRepeater.ItemTemplate>
+            </ItemsRepeater>
+          </ScrollViewer>
+        </Border>
+      </Grid>
+    </Border>
+
+    <!-- Annotate -->
+    <TextBlock Margin="0,16,0,0" FontSize="14" TextWrapping="Wrap">
+      <Run Text="Question:"
+           FontFamily="{StaticResource LabUiMediumFont}"
+           Foreground="{StaticResource LabInkBrush}" />
+      <Run Text=" does the row being read move when five rows land above it?"
+           FontFamily="{StaticResource LabUiFont}"
+           Foreground="{StaticResource LabMutedBrush}" />
+    </TextBlock>
+
+    <Rectangle Height="1" Fill="{StaticResource LabLineBrush}" Margin="0,32" />
+
+    <!-- Live readouts -->
+    <TextBlock Text="LIVE STATE" Style="{StaticResource LabKicker}" Margin="0,0,0,4" />
+
+    <Border BorderBrush="{StaticResource LabLineBrush}" BorderThickness="0,1,0,0" Padding="0,16">
+      <Grid>
+        <TextBlock Text="VerticalAnchorRatio" Style="{StaticResource LabBody}" />
+        <TextBlock x:Name="RatioValue" Text="0.5" Style="{StaticResource LabMonoLabel}" HorizontalAlignment="Right" />
+      </Grid>
+    </Border>
+    <Border BorderBrush="{StaticResource LabLineBrush}" BorderThickness="0,1,0,0" Padding="0,16">
+      <Grid>
+        <TextBlock Text="scrollViewer.CurrentAnchor" Style="{StaticResource LabBody}" />
+        <TextBlock Style="{StaticResource LabMonoLabel}" HorizontalAlignment="Right"
+                   FontFamily="{StaticResource LabMonoMediumFont}"
+                   Foreground="{StaticResource LabInkBrush}">
+          <Run x:Name="AnchorRun" Text="—" />
+        </TextBlock>
+      </Grid>
+    </Border>
+    <Border BorderBrush="{StaticResource LabLineBrush}" BorderThickness="0,1,0,1" Padding="0,16">
+      <Grid>
+        <TextBlock Text="Messages" Style="{StaticResource LabBody}" />
+        <TextBlock Style="{StaticResource LabMonoLabel}" HorizontalAlignment="Right">
+          <Run x:Name="CountRun" Text="0" />
+        </TextBlock>
+      </Grid>
+    </Border>
+
+  </StackPanel>
+</UserControl>
