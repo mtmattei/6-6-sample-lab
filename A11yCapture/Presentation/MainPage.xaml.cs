@@ -66,7 +66,11 @@ public sealed partial class MainPage : Page
         // Same for the projection spin: a collapsed section still holds its
         // CompositionTarget.Rendering hook unless it is told to let go. Guarded on
         // the target, so arriving at the section does not land on a paused card.
-        if (key != "projection")
+        if (key == "projection")
+        {
+            ProjectionView.Activate();
+        }
+        else
         {
             ProjectionView.Deactivate();
         }

@@ -248,11 +248,19 @@
       </Grid>
     </Border>
     <Border BorderBrush="{StaticResource LabLineBrush}" BorderThickness="0,1,0,1" Padding="0,16">
-      <Grid>
-        <TextBlock Text="LayoutInformation.GetLayoutSlot" Style="{StaticResource LabBody}" />
-        <TextBlock x:Name="LayoutValue" Text="—"
+      <!-- This value is the longest in the table; give it its own column so it
+           cannot overrun the label the way a shared cell allows. -->
+      <Grid ColumnSpacing="16">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto" />
+          <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <TextBlock Text="GetLayoutSlot" Style="{StaticResource LabBody}" VerticalAlignment="Center" />
+        <TextBlock x:Name="LayoutValue" Grid.Column="1" Text="—"
                    Style="{StaticResource LabMonoLabel}"
                    Foreground="{StaticResource LabAccentBrush}"
+                   TextAlignment="Right"
+                   TextWrapping="Wrap"
                    HorizontalAlignment="Right" />
       </Grid>
     </Border>

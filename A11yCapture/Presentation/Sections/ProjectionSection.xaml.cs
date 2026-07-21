@@ -29,6 +29,19 @@ public sealed partial class ProjectionSection : UserControl
     public void Deactivate()
         => SpinToggle.IsChecked = false;
 
+    /// <summary>
+    /// Called by the shell on arrival. Loaded only fires once for the section, so
+    /// without this the card stays paused from the last Deactivate for the rest of
+    /// the run. Honours reduced motion, same as first load.
+    /// </summary>
+    public void Activate()
+    {
+        if (new Windows.UI.ViewManagement.UISettings().AnimationsEnabled)
+        {
+            SpinToggle.IsChecked = true;
+        }
+    }
+
     private void OnLoaded(object sender, RoutedEventArgs e)
     {
         OnAxisChanged(RotX, null!);
