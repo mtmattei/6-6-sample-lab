@@ -127,13 +127,18 @@
       </Grid>
     </Border>
 
-    <!-- Stage 2: context surface -->
+    <!-- Stage 2: context surface.
+         Flyouts are popups, so an open File > New > From template chain paints
+         over whatever sits beneath it. Measured at ~200px below the menu bar,
+         which clears FIG.08's own card by ~136px. That much extra gap goes here
+         rather than as padding inside FIG.08, where it would read as an empty
+         card instead of deliberate separation. -->
     <Border Background="{StaticResource LabGray1Brush}"
             BorderBrush="{StaticResource LabLineBrush}"
             BorderThickness="1"
             CornerRadius="{StaticResource LabRadius}"
             Padding="32"
-            Margin="0,24,0,0">
+            Margin="0,160,0,0">
       <Grid>
         <TextBlock Text="FIG.09 · CONTEXT" Style="{StaticResource LabKicker}"
                    VerticalAlignment="Top" HorizontalAlignment="Left"
