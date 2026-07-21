@@ -177,7 +177,7 @@
                        FontFamily="{StaticResource LabUiFont}"
                        FontSize="20"
                        Foreground="{StaticResource LabInkBrush}"
-                       Text="Hello, world! こんにちは 你好 안녕하세요 مرحبا नमस्ते สวัสดี ‎— Uno Platform" />
+                       Text="Hello, world! 👋 🌍 こんにちは 你好 안녕하세요 مرحبا नमस्ते สวัสดี ‎— Uno Platform" />
           </Border>
         </StackPanel>
       </Grid>
@@ -218,7 +218,7 @@
     <Border BorderBrush="{StaticResource LabLineBrush}" BorderThickness="0,1,0,1" Padding="0,16">
       <Grid>
         <TextBlock Text="Scripts in the fallback line" Style="{StaticResource LabBody}" />
-        <TextBlock Text="Latin · CJK · Hangul · Arabic · Devanagari · Thai"
+        <TextBlock Text="Latin · Emoji · CJK · Hangul · Arabic · Devanagari · Thai"
                    Style="{StaticResource LabMonoLabel}"
                    HorizontalAlignment="Right" />
       </Grid>
