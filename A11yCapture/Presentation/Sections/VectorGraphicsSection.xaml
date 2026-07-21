@@ -181,16 +181,6 @@
       </Grid>
     </Border>
 
-    <!-- Annotate -->
-    <TextBlock Margin="0,16,0,0" FontSize="14" TextWrapping="Wrap">
-      <Run Text="Question:"
-           FontFamily="{StaticResource LabUiMediumFont}"
-           Foreground="{StaticResource LabInkBrush}" />
-      <Run Text=" the geometry rotates while its element stays put. What is actually being transformed?"
-           FontFamily="{StaticResource LabUiFont}"
-           Foreground="{StaticResource LabMutedBrush}" />
-    </TextBlock>
-
     <Rectangle Height="1" Fill="{StaticResource LabLineBrush}" Margin="0,32" />
 
     <!-- Live readouts -->

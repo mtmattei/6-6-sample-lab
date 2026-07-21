@@ -137,16 +137,6 @@
       </Border>
     </StackPanel>
 
-    <!-- Annotate -->
-    <TextBlock Margin="0,16,0,0" FontSize="14" TextWrapping="Wrap">
-      <Run Text="Question:"
-           FontFamily="{StaticResource LabUiMediumFont}"
-           Foreground="{StaticResource LabInkBrush}" />
-      <Run Text=" which island moves when the section theme changes, and which holds its own?"
-           FontFamily="{StaticResource LabUiFont}"
-           Foreground="{StaticResource LabMutedBrush}" />
-    </TextBlock>
-
     <Rectangle Height="1" Fill="{StaticResource LabLineBrush}" Margin="0,32" />
 
     <!-- Live readouts -->

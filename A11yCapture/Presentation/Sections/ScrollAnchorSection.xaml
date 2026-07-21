@@ -132,16 +132,6 @@
       </Grid>
     </Border>
 
-    <!-- Annotate -->
-    <TextBlock Margin="0,16,0,0" FontSize="14" TextWrapping="Wrap">
-      <Run Text="Question:"
-           FontFamily="{StaticResource LabUiMediumFont}"
-           Foreground="{StaticResource LabInkBrush}" />
-      <Run Text=" does the row being read move when five rows land above it?"
-           FontFamily="{StaticResource LabUiFont}"
-           Foreground="{StaticResource LabMutedBrush}" />
-    </TextBlock>
-
     <Rectangle Height="1" Fill="{StaticResource LabLineBrush}" Margin="0,32" />
 
     <!-- Live readouts -->

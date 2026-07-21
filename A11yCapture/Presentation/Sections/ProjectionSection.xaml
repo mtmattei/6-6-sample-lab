@@ -195,16 +195,6 @@
       </Grid>
     </Border>
 
-    <!-- Annotate -->
-    <TextBlock Margin="0,16,0,0" FontSize="14" TextWrapping="Wrap">
-      <Run Text="Question:"
-           FontFamily="{StaticResource LabUiMediumFont}"
-           Foreground="{StaticResource LabInkBrush}" />
-      <Run Text=" the card turns away from you, and TransformToVisual turns with it. Did its layout slot move?"
-           FontFamily="{StaticResource LabUiFont}"
-           Foreground="{StaticResource LabMutedBrush}" />
-    </TextBlock>
-
     <Rectangle Height="1" Fill="{StaticResource LabLineBrush}" Margin="0,32" />
 
     <!-- Live readouts -->
@@ -247,7 +237,7 @@
       </Grid>
     </Border>
 
-    <!-- The two rows that answer the question: one moves, one does not. -->
+    <!-- The two rows that carry the point: one moves, one does not. -->
     <Border BorderBrush="{StaticResource LabLineBrush}" BorderThickness="0,1,0,0" Padding="0,16">
       <Grid>
         <TextBlock Text="TransformToVisual" Style="{StaticResource LabBody}" />
