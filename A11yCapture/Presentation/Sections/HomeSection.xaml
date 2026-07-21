@@ -106,6 +106,19 @@
 
       <Button Grid.Row="3" Grid.Column="0"
               Style="{StaticResource LabCard}"
+              Tag="projection"
+              AutomationProperties.Name="Open Projection sample"
+              Click="OnCardClick">
+        <StackPanel Spacing="6">
+          <TextBlock Text="DEMO" Style="{StaticResource LabKicker}" Margin="0,0,0,6" />
+          <TextBlock Text="Projection" Style="{StaticResource LabCardTitle}" />
+          <TextBlock Style="{StaticResource LabBody}" Foreground="{StaticResource LabMutedBrush}"
+                     Text="How a 3D turn leaves the layout rect where it was." />
+        </StackPanel>
+      </Button>
+
+      <Button Grid.Row="3" Grid.Column="1"
+              Style="{StaticResource LabCard}"
               Tag="menus-context"
               AutomationProperties.Name="Open Menus and context sample"
               Click="OnCardClick">

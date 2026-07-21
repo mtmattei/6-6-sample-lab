@@ -29,6 +29,7 @@ public sealed partial class MainPage : Page
             new("text-features", NavText, TickText, LabelText, TextView, "text-features"),
             new("element-theming", NavElementTheme, TickElementTheme, LabelElementTheme, ElementThemeView, "element-theming"),
             new("vector-graphics", NavVectorGraphics, TickVectorGraphics, LabelVectorGraphics, VectorGraphicsView, "vector-graphics"),
+            new("projection", NavProjection, TickProjection, LabelProjection, ProjectionView, "projection"),
             new("menus-context", NavMenuFlyout, TickMenuFlyout, LabelMenuFlyout, MenuFlyoutView, "menus-context"),
         };
 
@@ -61,6 +62,14 @@ public sealed partial class MainPage : Page
     {
         // The streaming feed must not keep inserting while its section is hidden.
         ScrollAnchorView.Deactivate();
+
+        // Same for the projection spin: a collapsed section still holds its
+        // CompositionTarget.Rendering hook unless it is told to let go. Guarded on
+        // the target, so arriving at the section does not land on a paused card.
+        if (key != "projection")
+        {
+            ProjectionView.Deactivate();
+        }
 
         foreach (var entry in _entries)
         {

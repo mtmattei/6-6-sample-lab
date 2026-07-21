@@ -219,6 +219,21 @@
           </StackPanel>
         </Button>
 
+        <Button x:Name="NavProjection"
+                Style="{StaticResource LabNavItem}"
+                AutomationProperties.Name="Projection"
+                Click="NavItem_Click">
+          <StackPanel Orientation="Horizontal" Spacing="12">
+            <Rectangle x:Name="TickProjection" Width="2" Height="14" RadiusX="1" RadiusY="1"
+                       Fill="Transparent" VerticalAlignment="Center" />
+            <TextBlock x:Name="LabelProjection"
+                       Text="Projection"
+                       FontFamily="{StaticResource LabUiFont}"
+                       FontSize="14"
+                       Foreground="{StaticResource LabMutedBrush}" />
+          </StackPanel>
+        </Button>
+
         <Button x:Name="NavMenuFlyout"
                 Style="{StaticResource LabNavItem}"
                 AutomationProperties.Name="Menus and context"
@@ -249,6 +264,7 @@
         <sections:TextSection x:Name="TextView" Visibility="Collapsed" />
         <sections:ElementThemeSection x:Name="ElementThemeView" Visibility="Collapsed" />
         <sections:VectorGraphicsSection x:Name="VectorGraphicsView" Visibility="Collapsed" />
+        <sections:ProjectionSection x:Name="ProjectionView" Visibility="Collapsed" />
         <sections:MenuFlyoutSection x:Name="MenuFlyoutView" Visibility="Collapsed" />
       </Grid>
     </ScrollViewer>
