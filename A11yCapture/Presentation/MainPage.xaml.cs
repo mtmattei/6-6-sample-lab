@@ -138,28 +138,53 @@ public sealed partial class MainPage : Page
         SetTabVisual(TabNotesBtn, TabNotesLine, _activeTab == "notes");
 
         var text = ActiveTabText();
+        CodeHost.Children.Clear();
 
         if (_activeTab == "notes")
         {
-            // Notes are prose: no gutter, wrapped to the panel width.
-            CodeLineNumbers.Visibility = Visibility.Collapsed;
-            CodeText.TextWrapping = TextWrapping.Wrap;
-            CodeText.MaxWidth = 292;
+            // Notes are prose: no gutter, one wrapped block.
+            CodeHost.Children.Add(MakeCodeText(text, "LabInkBrush"));
         }
         else
         {
-            CodeLineNumbers.Text = string.Join(
-                "\n", Enumerable.Range(1, text.Split('\n').Length));
-            CodeLineNumbers.Visibility = Visibility.Visible;
-            CodeText.TextWrapping = TextWrapping.NoWrap;
-            CodeText.MaxWidth = double.PositiveInfinity;
+            // One row per line so wrapped continuations indent under the
+            // code column instead of drifting the gutter out of sync.
+            var lines = text.Replace("\r\n", "\n").Split('\n');
+            for (var i = 0; i < lines.Length; i++)
+            {
+                var row = new Grid { ColumnSpacing = 12 };
+                row.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(22) });
+                row.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+
+                var number = MakeCodeText((i + 1).ToString(), "LabLine2Brush");
+                number.TextAlignment = TextAlignment.Right;
+
+                // An empty TextBlock measures to zero height; keep blank lines tall.
+                var code = MakeCodeText(lines[i].Length == 0 ? " " : lines[i], "LabInkBrush");
+                Grid.SetColumn(code, 1);
+
+                row.Children.Add(number);
+                row.Children.Add(code);
+                CodeHost.Children.Add(row);
+            }
         }
 
-        CodeText.Text = text;
         TipText.Text = _activeSource.Tip;
         CopyLabel.Text = "COPY";
         CodeScroll.ChangeView(0, 0, null, disableAnimation: true);
     }
+
+    private static TextBlock MakeCodeText(string text, string brushKey)
+        => new()
+        {
+            Text = text,
+            FontFamily = (FontFamily)Application.Current.Resources["LabMonoFont"],
+            FontSize = 12,
+            LineHeight = 19,
+            TextWrapping = TextWrapping.Wrap,
+            Foreground = Brush(brushKey),
+            IsTextSelectionEnabled = true,
+        };
 
     private string ActiveTabText()
         => _activeTab switch
