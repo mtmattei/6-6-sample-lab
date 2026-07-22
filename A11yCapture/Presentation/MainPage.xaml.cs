@@ -1,5 +1,6 @@
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Shapes;
+using Windows.ApplicationModel.DataTransfer;
 
 namespace A11yCapture.Presentation;
 
@@ -92,7 +93,105 @@ public sealed partial class MainPage : Page
             }
         }
 
+        UpdateSourcePanel(key);
+
         MainScroll.ChangeView(null, 0, null, disableAnimation: true);
+    }
+
+    // ---- Source panel -------------------------------------------------
+
+    private SampleSource? _activeSource;
+    private string _activeTab = "xaml";
+
+    private void UpdateSourcePanel(string slug)
+    {
+        if (SampleSources.BySlug.TryGetValue(slug, out var source))
+        {
+            _activeSource = source;
+            SourcePanel.Visibility = Visibility.Visible;
+            RenderSource();
+        }
+        else
+        {
+            _activeSource = null;
+            SourcePanel.Visibility = Visibility.Collapsed;
+        }
+    }
+
+    private void SourceTab_Click(object sender, RoutedEventArgs e)
+    {
+        _activeTab = sender == TabCSharpBtn ? "csharp"
+                   : sender == TabNotesBtn ? "notes"
+                   : "xaml";
+        RenderSource();
+    }
+
+    private void RenderSource()
+    {
+        if (_activeSource is null)
+        {
+            return;
+        }
+
+        SetTabVisual(TabXamlBtn, TabXamlLine, _activeTab == "xaml");
+        SetTabVisual(TabCSharpBtn, TabCSharpLine, _activeTab == "csharp");
+        SetTabVisual(TabNotesBtn, TabNotesLine, _activeTab == "notes");
+
+        var text = ActiveTabText();
+
+        if (_activeTab == "notes")
+        {
+            // Notes are prose: no gutter, wrapped to the panel width.
+            CodeLineNumbers.Visibility = Visibility.Collapsed;
+            CodeText.TextWrapping = TextWrapping.Wrap;
+            CodeText.MaxWidth = 292;
+        }
+        else
+        {
+            CodeLineNumbers.Text = string.Join(
+                "\n", Enumerable.Range(1, text.Split('\n').Length));
+            CodeLineNumbers.Visibility = Visibility.Visible;
+            CodeText.TextWrapping = TextWrapping.NoWrap;
+            CodeText.MaxWidth = double.PositiveInfinity;
+        }
+
+        CodeText.Text = text;
+        TipText.Text = _activeSource.Tip;
+        CopyLabel.Text = "COPY";
+        CodeScroll.ChangeView(0, 0, null, disableAnimation: true);
+    }
+
+    private string ActiveTabText()
+        => _activeTab switch
+        {
+            "csharp" => _activeSource?.CSharp ?? "",
+            "notes" => _activeSource?.Notes ?? "",
+            _ => _activeSource?.Xaml ?? "",
+        };
+
+    private void SetTabVisual(Button tab, Rectangle line, bool active)
+    {
+        tab.Foreground = Brush(active ? "LabInkBrush" : "LabMutedBrush");
+        tab.FontFamily = (FontFamily)Application.Current.Resources[
+            active ? "LabMonoMediumFont" : "LabMonoFont"];
+        line.Fill = active ? Brush("LabInkBrush") : Brush(null);
+    }
+
+    private async void CopySource_Click(object sender, RoutedEventArgs e)
+    {
+        var text = ActiveTabText();
+        if (text.Length == 0)
+        {
+            return;
+        }
+
+        var package = new DataPackage();
+        package.SetText(text);
+        Clipboard.SetContent(package);
+
+        CopyLabel.Text = "COPIED";
+        await Task.Delay(1400);
+        CopyLabel.Text = "COPY";
     }
 
     private static Brush Brush(string? key)

@@ -35,6 +35,7 @@
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="232" />
       <ColumnDefinition Width="*" />
+      <ColumnDefinition Width="Auto" />
     </Grid.ColumnDefinitions>
     <Grid.RowDefinitions>
       <RowDefinition Height="49" />
@@ -268,6 +269,127 @@
         <sections:MenuFlyoutSection x:Name="MenuFlyoutView" Visibility="Collapsed" />
       </Grid>
     </ScrollViewer>
+
+    <!-- Source panel: curated excerpts for the active demo. Hidden on the index. -->
+    <Border x:Name="SourcePanel"
+            Grid.Row="0" Grid.RowSpan="2" Grid.Column="2"
+            Width="340"
+            Visibility="Collapsed"
+            BorderBrush="{StaticResource LabLineBrush}"
+            BorderThickness="1,0,0,0"
+            uut:AutomationPropertiesExtensions.Role="complementary"
+            AutomationProperties.Name="Sample source">
+      <Grid>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="49" />
+          <RowDefinition Height="*" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Tab header, aligned with the top bar -->
+        <Border BorderBrush="{StaticResource LabLineBrush}"
+                BorderThickness="0,0,0,1"
+                Padding="16,0">
+          <StackPanel Orientation="Horizontal" Spacing="20">
+            <Grid>
+              <Button x:Name="TabXamlBtn"
+                      Content="XAML"
+                      Style="{StaticResource LabSegButton}"
+                      Background="Transparent"
+                      Padding="2,0"
+                      VerticalAlignment="Stretch"
+                      FontFamily="{StaticResource LabMonoMediumFont}"
+                      Foreground="{StaticResource LabInkBrush}"
+                      AutomationProperties.Name="XAML source"
+                      Click="SourceTab_Click" />
+              <Rectangle x:Name="TabXamlLine" Height="2"
+                         Fill="{StaticResource LabInkBrush}"
+                         VerticalAlignment="Bottom" />
+            </Grid>
+            <Grid>
+              <Button x:Name="TabCSharpBtn"
+                      Content="C#"
+                      Style="{StaticResource LabSegButton}"
+                      Background="Transparent"
+                      Padding="2,0"
+                      VerticalAlignment="Stretch"
+                      AutomationProperties.Name="C# source"
+                      Click="SourceTab_Click" />
+              <Rectangle x:Name="TabCSharpLine" Height="2"
+                         Fill="Transparent"
+                         VerticalAlignment="Bottom" />
+            </Grid>
+            <Grid>
+              <Button x:Name="TabNotesBtn"
+                      Content="NOTES"
+                      Style="{StaticResource LabSegButton}"
+                      Background="Transparent"
+                      Padding="2,0"
+                      VerticalAlignment="Stretch"
+                      AutomationProperties.Name="Notes"
+                      Click="SourceTab_Click" />
+              <Rectangle x:Name="TabNotesLine" Height="2"
+                         Fill="Transparent"
+                         VerticalAlignment="Bottom" />
+            </Grid>
+          </StackPanel>
+        </Border>
+
+        <!-- Code: line numbers gutter + body, shared line height -->
+        <ScrollViewer x:Name="CodeScroll"
+                      Grid.Row="1"
+                      Padding="16,16,16,8"
+                      HorizontalScrollBarVisibility="Auto"
+                      HorizontalScrollMode="Enabled"
+                      VerticalScrollBarVisibility="Auto"
+                      IsTabStop="False">
+          <StackPanel Orientation="Horizontal" Spacing="14">
+            <TextBlock x:Name="CodeLineNumbers"
+                       FontFamily="{StaticResource LabMonoFont}"
+                       FontSize="12"
+                       LineHeight="19"
+                       TextAlignment="Right"
+                       Foreground="{StaticResource LabLine2Brush}"
+                       AutomationProperties.AccessibilityView="Raw" />
+            <TextBlock x:Name="CodeText"
+                       FontFamily="{StaticResource LabMonoFont}"
+                       FontSize="12"
+                       LineHeight="19"
+                       Foreground="{StaticResource LabInkBrush}"
+                       IsTextSelectionEnabled="True" />
+          </StackPanel>
+        </ScrollViewer>
+
+        <Button x:Name="CopyButton"
+                Grid.Row="2"
+                Style="{StaticResource LabGhostButton}"
+                Padding="12,5"
+                Margin="16,4,16,16"
+                HorizontalAlignment="Left"
+                AutomationProperties.Name="Copy source"
+                Click="CopySource_Click">
+          <TextBlock x:Name="CopyLabel"
+                     Text="COPY"
+                     FontFamily="{StaticResource LabMonoFont}"
+                     FontSize="11"
+                     CharacterSpacing="80" />
+        </Button>
+
+        <!-- Tip footer -->
+        <Border Grid.Row="3"
+                BorderBrush="{StaticResource LabLineBrush}"
+                BorderThickness="0,1,0,0"
+                Padding="16">
+          <StackPanel Spacing="6">
+            <TextBlock Text="TIP" Style="{StaticResource LabKicker}" />
+            <TextBlock x:Name="TipText"
+                       Style="{StaticResource LabMonoLabel}"
+                       TextWrapping="Wrap" />
+          </StackPanel>
+        </Border>
+      </Grid>
+    </Border>
 
   </Grid>
 </Page>
