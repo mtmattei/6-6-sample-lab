@@ -291,7 +291,19 @@
         <Border BorderBrush="{StaticResource LabLineBrush}"
                 BorderThickness="0,0,0,1"
                 Padding="24,0">
-          <StackPanel Orientation="Horizontal" Spacing="20">
+          <Grid>
+            <Button x:Name="CollapseSourceBtn"
+                    Content="HIDE &#x203A;"
+                    Style="{StaticResource LabSegButton}"
+                    Background="Transparent"
+                    Padding="2,0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Stretch"
+                    FontFamily="{StaticResource LabMonoFont}"
+                    Foreground="{StaticResource LabMutedBrush}"
+                    AutomationProperties.Name="Hide source panel"
+                    Click="CollapseSource_Click" />
+            <StackPanel Orientation="Horizontal" Spacing="20">
             <Grid>
               <Button x:Name="TabXamlBtn"
                       Content="XAML"
@@ -334,6 +346,7 @@
                          VerticalAlignment="Bottom" />
             </Grid>
           </StackPanel>
+          </Grid>
         </Border>
 
         <!-- Code: one row per line (gutter + wrapped text), built in code-behind
@@ -373,6 +386,36 @@
                        TextWrapping="Wrap" />
           </StackPanel>
         </Border>
+      </Grid>
+    </Border>
+
+    <!-- Collapsed stand-in for the source panel: a slim rail with a reopen affordance.
+         Shown only when a sample is active and the panel is hidden. -->
+    <Border x:Name="SourceRail"
+            Grid.Row="0" Grid.RowSpan="2" Grid.Column="2"
+            Width="41"
+            Visibility="Collapsed"
+            BorderBrush="{StaticResource LabLineBrush}"
+            BorderThickness="1,0,0,0">
+      <Grid>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="49" />
+          <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Border BorderBrush="{StaticResource LabLineBrush}"
+                BorderThickness="0,0,0,1" />
+        <Button x:Name="ExpandSourceBtn"
+                Grid.RowSpan="2"
+                Content="&#x2039;/&#x203A;"
+                Style="{StaticResource LabSegButton}"
+                Background="Transparent"
+                Padding="0"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                FontFamily="{StaticResource LabMonoFont}"
+                Foreground="{StaticResource LabMutedBrush}"
+                AutomationProperties.Name="Show source panel"
+                Click="ExpandSource_Click" />
       </Grid>
     </Border>
 

@@ -35,7 +35,26 @@ public sealed partial class MainPage : Page
         };
 
         Loaded += OnLoaded;
+        SizeChanged += OnFirstSizeChanged;
         Unloaded += (_, _) => LogoQuadrantLoop.Stop();
+    }
+
+    // Narrow hosts (blog iframes) start with the source panel collapsed; the
+    // first measured width decides the default, then only the user toggles it.
+    private const double SourceAutoCollapseWidth = 1100;
+    private bool _sourceCollapsed;
+    private bool _sourceDefaultApplied;
+
+    private void OnFirstSizeChanged(object sender, SizeChangedEventArgs e)
+    {
+        if (_sourceDefaultApplied)
+        {
+            return;
+        }
+
+        _sourceDefaultApplied = true;
+        _sourceCollapsed = e.NewSize.Width < SourceAutoCollapseWidth;
+        ApplySourceVisibility();
     }
 
     private void OnLoaded(object sender, RoutedEventArgs e)
@@ -108,14 +127,33 @@ public sealed partial class MainPage : Page
         if (SampleSources.BySlug.TryGetValue(slug, out var source))
         {
             _activeSource = source;
-            SourcePanel.Visibility = Visibility.Visible;
+            ApplySourceVisibility();
             RenderSource();
         }
         else
         {
             _activeSource = null;
-            SourcePanel.Visibility = Visibility.Collapsed;
+            ApplySourceVisibility();
         }
+    }
+
+    private void ApplySourceVisibility()
+    {
+        var hasSource = _activeSource is not null;
+        SourcePanel.Visibility = hasSource && !_sourceCollapsed ? Visibility.Visible : Visibility.Collapsed;
+        SourceRail.Visibility = hasSource && _sourceCollapsed ? Visibility.Visible : Visibility.Collapsed;
+    }
+
+    private void CollapseSource_Click(object sender, RoutedEventArgs e)
+    {
+        _sourceCollapsed = true;
+        ApplySourceVisibility();
+    }
+
+    private void ExpandSource_Click(object sender, RoutedEventArgs e)
+    {
+        _sourceCollapsed = false;
+        ApplySourceVisibility();
     }
 
     private void SourceTab_Click(object sender, RoutedEventArgs e)
